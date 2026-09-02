@@ -247,7 +247,7 @@ export const positions = {
     {
       role: "E-Student Member",
       organization: "Royal Statistical Society (RSS), United Kingdom",
-      period: "2026 – Present",
+      period: "2025 – Present",
       description:
         "International student member participating in international statistical conventions, research publications, data science discussion tracks, and methodology updates.",
     },
