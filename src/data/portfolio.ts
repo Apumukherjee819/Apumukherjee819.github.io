@@ -452,7 +452,7 @@ export const resume = {
     {
       role: "Member Of Student Council (Vidyarthi Sabha), Vidyarthi Sabha Core Committee, Library Section",
       institution: "Ramakrishna Mission Residential College (Autonomous)",
-      period: "2025 – present",
+      period: "2025 – 2026",
     },
     {
       role: "E-Student Membership",
