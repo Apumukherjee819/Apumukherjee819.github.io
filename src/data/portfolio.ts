@@ -180,7 +180,7 @@ export const projects = {
         "Machine-learning credit scoring using XGBoost (99.5% AUC-ROC) and Random Forest.",
         "10-layer post-quantum security stack including Zero-Knowledge Proofs (ZKP), Fully Homomorphic Encryption (FHE), and Post-Quantum Cryptography (PQC).",
       ],
-      links: [{ label: "GitHub →", url: "https://github.com/Apumukherjee819" }],
+      links: [{ label: "GitHub →", url: "https://github.com/Apumukherjee819/Underbanked-and-Financial-Inclusion---ARTHASETU-2.0-" }],
     },
     {
       number: "02",
@@ -199,8 +199,27 @@ export const projects = {
         "Stratification division: 10.84% + 77.13% + 12.03%.",
         "Particle Swarm Optimization reduced evacuation time by 33%.",
       ],
-      links: [{ label: "GitHub →", url: "https://github.com/Apumukherjee819" }],
+      links: [{ label: "GitHub →", url: "https://github.com/Apumukherjee819/FloodSafePSO-A-Particle-Swarm-Optimization-Model-for-Risk-Aware-Flood-Evacuation" }],
     },
+    {
+      number: "03",
+      title: "SpectraBDH : Visualizing Spectral Radius Memory Interference and Latent Reasoning",
+      period: "2026",
+      association: "DATAFORGE, IIT Kharagpur",
+      tags: ["Dragon Hatchling", "Mamba Architecture", "memory Decay", "synaptic Plasticity"],
+      paragraphs: [
+        " Pathway Track represents a paradigm in interactive machine learning pedagogy — a fully client-side, mathematically rigorous exploratory artifact designed to bridge the gap between theoretical State Space Model (SSM) dynamics and the architectural innovations introduced by Pathway's Dragon Hatchling (BDH) family. Developed for the NeurIPS 2026 Education Track, the explainer operationalizes a single falsifiable hypothesis: that fixed-size linear recurrent states, while achieving constant O(1) memory complexity per token, suffer from exponential associative memory decay governed by the spectral radius of the transition matrix $ρ(A)^L$ — a fundamental limitation that selective input-dependent gating and multi-scale Hebbian synaptic plasticity systematically resolve",
+        "Every computational substrate — from HiPPO-structured transition matrix generation and eigenvalue decomposition via 2×2 rotation block factorization to cosine-similarity fidelity probes and outer-product fast-weight updates — executes in real-time within the browser at sub-16ms latency, eliminating all precomputation, scripted animation, or server-side dependency.",
+        " The engine implements four distinct architectural paradigms for head-to-head comparative evaluation: classical linear SSM recurrence with HiPPO-inspired continuous memory initialization, selective state space modeling following the Mamba S6 discretization scheme where input-dependent gating coefficients Δ_t = softplus(w^T·x_t) modulate noise suppression, Dragon Hatchling synaptic plasticity employing the Hebbian outer-product update rule W_t = λ·W_{t-1} + η·(y_t ⊗ x_t^T) to maintain O(d²) associative capacity without sequence-length-proportional memory allocation, and BDH CQ continuous latent reasoning which unrolls recurrent micro-steps z_{τ+1} = LayerNorm(z_τ + f_θ(z_τ, c)) within the hidden manifold to achieve multi-hop deductive inference without discrete token emission",
+      ],
+      highlights: [
+        "The Falsifiable Hypothesis and Live Empirical Verdict",
+        "Architecture Arena: Simultaneous Multi-Paradigm Benchmarking",
+        "Dragon Hatchling Deep Dive: Synaptic Plasticity and Continuous Latent Reasoning",
+        "Needle-in-a-Haystack Context Stress Tester",
+      ],
+      links: [{ label: "GitHub →", url: "https://github.com/Apumukherjee819/SpectraBDH-Visualizing-Spectral-Radius-Memory-Interference-and-Latent-Reasoning" }],
+    }
   ],
 };
 
