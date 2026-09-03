@@ -219,7 +219,7 @@ export const projects = {
         "Needle-in-a-Haystack Context Stress Tester",
       ],
       links: [{ label: "GitHub →", url: "https://github.com/Apumukherjee819/SpectraBDH-Visualizing-Spectral-Radius-Memory-Interference-and-Latent-Reasoning" }],
-    }
+    },
   ],
 };
 
