@@ -240,7 +240,7 @@ export const positions = {
     {
       role: "Member of Student Council (Vidyarthi Sabha), Core Committee (Library Section)",
       organization: "Ramakrishna Mission Residential College (Autonomous), Narendrapur",
-      period: "2025 – 2026",
+      period: "2025 – Present",
       description:
         "Active member of the Vidyarthi Sabha Core Committee, overseeing library section governance, student academic resources, and co-organizing departmental statistical workshops and seminars.",
     },
@@ -452,12 +452,12 @@ export const resume = {
     {
       role: "Member Of Student Council (Vidyarthi Sabha), Vidyarthi Sabha Core Committee, Library Section",
       institution: "Ramakrishna Mission Residential College (Autonomous)",
-      period: "2025 – 2026",
+      period: "2025 – Present",
     },
     {
       role: "E-Student Membership",
       institution: "Royal Statistical Society, UK",
-      period: "2026 – present",
+      period: "2025 – Present",
     },
   ],
   achievements: [
