@@ -166,6 +166,7 @@ function Header() {
 
   return (
     <header className="fixed left-0 right-0 top-0 z-40 border-b border-border/60 bg-background/90 backdrop-blur-md">
+      <div className="header-gradient-bar" />
       <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3.5 sm:px-8">
         {/* Title / Identity */}
         <div className="flex items-center gap-3">

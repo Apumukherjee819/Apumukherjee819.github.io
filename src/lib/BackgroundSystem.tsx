@@ -10,6 +10,7 @@ interface MathNode {
   alpha: number;
   pulseSpeed: number;
   pulsePhase: number;
+  colorType: "emerald" | "cyan" | "violet" | "amber";
 }
 
 export function BackgroundSystem() {
@@ -55,21 +56,24 @@ export function BackgroundSystem() {
     };
 
     let nodes: MathNode[] = [];
+    const colors = ["emerald", "cyan", "violet", "amber"] as const;
+
     const initNodes = () => {
-      const count = Math.min(Math.floor((width * height) / 22000), 65);
+      const count = Math.min(Math.floor((width * height) / 18000), 75);
       nodes = [];
       for (let i = 0; i < count; i++) {
-        const radius = Math.random() * 2 + 1.2;
+        const radius = Math.random() * 2.2 + 1.2;
         nodes.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.45,
-          vy: (Math.random() - 0.5) * 0.45,
+          vx: (Math.random() - 0.5) * 0.55,
+          vy: (Math.random() - 0.5) * 0.55,
           radius,
           baseRadius: radius,
-          alpha: Math.random() * 0.45 + 0.25,
-          pulseSpeed: Math.random() * 0.02 + 0.01,
+          alpha: Math.random() * 0.5 + 0.35,
+          pulseSpeed: Math.random() * 0.025 + 0.012,
           pulsePhase: Math.random() * Math.PI * 2,
+          colorType: colors[i % colors.length] ?? "emerald",
         });
       }
     };
@@ -101,6 +105,21 @@ export function BackgroundSystem() {
 
     initNodes();
 
+    const getColorRgb = (type: string, dark: boolean) => {
+      switch (type) {
+        case "emerald":
+          return dark ? "52, 211, 153" : "16, 185, 129";
+        case "cyan":
+          return dark ? "56, 189, 248" : "14, 165, 233";
+        case "violet":
+          return dark ? "167, 139, 250" : "139, 92, 246";
+        case "amber":
+          return dark ? "251, 191, 36" : "245, 158, 11";
+        default:
+          return dark ? "52, 211, 153" : "16, 185, 129";
+      }
+    };
+
     const render = () => {
       // Smooth mouse interpolation
       mouse.x += (mouse.targetX - mouse.x) * 0.08;
@@ -109,12 +128,10 @@ export function BackgroundSystem() {
       ctx.clearRect(0, 0, width, height);
 
       const dark = document.documentElement.classList.contains("dark");
-      const nodeColor = dark ? "52, 211, 153" : "16, 185, 129"; // Emerald
-      const nodeAltColor = dark ? "96, 165, 250" : "14, 116, 144"; // Cyan/Blue
-      const lineColor = dark ? "255, 255, 255" : "15, 23, 42";
+      const mouseCoreColor = dark ? "52, 211, 153" : "16, 185, 129";
 
-      // 1. Draw connecting lines between nodes
-      const maxDist = 140;
+      // 1. Draw connecting gradient lines between nodes
+      const maxDist = 150;
       for (let i = 0; i < nodes.length; i++) {
         const n1 = nodes[i];
         if (!n1) continue;
@@ -128,38 +145,49 @@ export function BackgroundSystem() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * (dark ? 0.18 : 0.12);
+            const alpha = (1 - dist / maxDist) * (dark ? 0.28 : 0.22);
+            const grad = ctx.createLinearGradient(n1.x, n1.y, n2.x, n2.y);
+            const rgb1 = getColorRgb(n1.colorType, dark);
+            const rgb2 = getColorRgb(n2.colorType, dark);
+            grad.addColorStop(0, `rgba(${rgb1}, ${alpha})`);
+            grad.addColorStop(1, `rgba(${rgb2}, ${alpha})`);
+
             ctx.beginPath();
             ctx.moveTo(n1.x, n1.y);
             ctx.lineTo(n2.x, n2.y);
-            ctx.strokeStyle = `rgba(${lineColor}, ${alpha})`;
-            ctx.lineWidth = 0.75;
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 0.9;
             ctx.stroke();
           }
         }
 
-        // Connect to mouse if close
+        // Connect to mouse if close with vibrant glowing magnetic laser
         const mdx = n1.x - mouse.x;
         const mdy = n1.y - mouse.y;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-        const mouseRadius = 180;
+        const mouseRadius = 220;
 
         if (mdist < mouseRadius) {
-          const mAlpha = (1 - mdist / mouseRadius) * (dark ? 0.45 : 0.35);
+          const mAlpha = (1 - mdist / mouseRadius) * (dark ? 0.65 : 0.50);
+          const mouseGrad = ctx.createLinearGradient(n1.x, n1.y, mouse.x, mouse.y);
+          const nodeRgb = getColorRgb(n1.colorType, dark);
+          mouseGrad.addColorStop(0, `rgba(${nodeRgb}, ${mAlpha})`);
+          mouseGrad.addColorStop(1, `rgba(${mouseCoreColor}, ${mAlpha * 1.2})`);
+
           ctx.beginPath();
           ctx.moveTo(n1.x, n1.y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(${nodeColor}, ${mAlpha})`;
-          ctx.lineWidth = 1.2;
+          ctx.strokeStyle = mouseGrad;
+          ctx.lineWidth = 1.4;
           ctx.stroke();
 
-          // Push nodes slightly on hover for dynamic fluid feel
-          n1.x += (mdx / mdist) * 0.3;
-          n1.y += (mdy / mdist) * 0.3;
+          // Magnetic pull towards cursor
+          n1.x += (mdx / mdist) * 0.35;
+          n1.y += (mdy / mdist) * 0.35;
         }
       }
 
-      // 2. Draw nodes & orbital rings
+      // 2. Draw nodes with glowing gradient cores & orbital pulse rings
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         if (!n) continue;
@@ -167,7 +195,7 @@ export function BackgroundSystem() {
         n.x += n.vx;
         n.y += n.vy;
 
-        // Bounce off edges with soft padding
+        // Soft viewport bounce
         if (n.x < 10) {
           n.x = 10;
           n.vx *= -1;
@@ -184,24 +212,40 @@ export function BackgroundSystem() {
         }
 
         n.pulsePhase += n.pulseSpeed;
-        const pulse = Math.sin(n.pulsePhase) * 0.6;
-        const currentRadius = Math.max(0.5, n.baseRadius + pulse);
+        const pulse = Math.sin(n.pulsePhase) * 0.8;
+        const currentRadius = Math.max(0.6, n.baseRadius + pulse);
+        const colorRgb = getColorRgb(n.colorType, dark);
 
-        const isAlt = i % 3 === 0;
-        const color = isAlt ? nodeAltColor : nodeColor;
+        // Radial glow on the node itself
+        const nodeGlow = ctx.createRadialGradient(
+          n.x,
+          n.y,
+          0,
+          n.x,
+          n.y,
+          currentRadius * 2.5
+        );
+        nodeGlow.addColorStop(0, `rgba(${colorRgb}, ${n.alpha})`);
+        nodeGlow.addColorStop(0.6, `rgba(${colorRgb}, ${n.alpha * 0.5})`);
+        nodeGlow.addColorStop(1, `rgba(${colorRgb}, 0)`);
 
-        // Node circle
         ctx.beginPath();
-        ctx.arc(n.x, n.y, currentRadius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, ${n.alpha})`;
+        ctx.arc(n.x, n.y, currentRadius * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = nodeGlow;
         ctx.fill();
 
-        // Subtle outer pulse halo for selected mathematical anchor nodes
-        if (i % 5 === 0) {
+        // Node center core
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, currentRadius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${colorRgb}, ${Math.min(1, n.alpha + 0.3)})`;
+        ctx.fill();
+
+        // Special orbital pulsating halo ring for anchor nodes
+        if (i % 4 === 0) {
           ctx.beginPath();
-          ctx.arc(n.x, n.y, currentRadius * 3, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${color}, ${dark ? 0.12 : 0.08})`;
-          ctx.lineWidth = 0.5;
+          ctx.arc(n.x, n.y, currentRadius * 3.8, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${colorRgb}, ${dark ? 0.22 : 0.16})`;
+          ctx.lineWidth = 0.75;
           ctx.stroke();
         }
       }
@@ -231,86 +275,99 @@ export function BackgroundSystem() {
         } as React.CSSProperties
       }
     >
-      {/* 1. Base Archival Background Layer */}
+      {/* 1. Base Archival Canvas Tint */}
       <div className="absolute inset-0 bg-background transition-colors duration-500" />
 
-      {/* 2. Atmospheric Aurora Ambient Glow Orbs */}
-      <div className="absolute inset-0 opacity-70 dark:opacity-55 transition-opacity duration-700 pointer-events-none">
-        {/* Top-Right Emerald / Academic Distinction Luminous Aura */}
-        <div className="absolute -top-[12%] right-[5%] h-[600px] w-[600px] rounded-full bg-emerald-500/18 dark:bg-emerald-500/22 blur-[130px] animate-ambient-drift will-change-transform" />
+      {/* 2. Rich Chromatic Mesh Gradient Aurora System (Brighter & Radiant) */}
+      <div className="absolute inset-0 opacity-85 dark:opacity-75 transition-opacity duration-700 pointer-events-none">
+        {/* Top-Right Emerald / Mint Luminous Radiant Aurora */}
+        <div className="absolute -top-[15%] right-[2%] h-[700px] w-[700px] rounded-full bg-gradient-to-tr from-emerald-500/26 via-teal-400/22 to-emerald-300/15 blur-[120px] animate-ambient-drift will-change-transform" />
 
-        {/* Mid-Left Analytical Sapphire & Cambridge Blue Aura */}
-        <div className="absolute top-[28%] -left-[8%] h-[650px] w-[650px] rounded-full bg-sky-500/18 dark:bg-blue-600/20 blur-[140px] animate-ambient-drift-reverse will-change-transform" />
+        {/* Mid-Left Cambridge Royal Sapphire & Electric Cyan Aurora */}
+        <div className="absolute top-[22%] -left-[10%] h-[750px] w-[750px] rounded-full bg-gradient-to-br from-blue-600/26 via-sky-400/22 to-indigo-500/18 blur-[130px] animate-ambient-drift-reverse will-change-transform" />
 
-        {/* Bottom-Center Warm Gold / Classical Scholarly Aura */}
-        <div className="absolute -bottom-[12%] left-[25%] h-[550px] w-[550px] rounded-full bg-amber-500/14 dark:bg-amber-500/15 blur-[130px] animate-pulse-subtle will-change-transform" />
+        {/* Bottom-Center Warm Golden Amber & Coral Scholarly Glow */}
+        <div className="absolute -bottom-[12%] left-[22%] h-[650px] w-[650px] rounded-full bg-gradient-to-tl from-amber-500/22 via-orange-400/18 to-yellow-300/14 blur-[120px] animate-pulse-subtle will-change-transform" />
+
+        {/* Mid-Right Electric Violet & Fuchsia Atmospheric Accent */}
+        <div className="absolute top-[55%] right-[8%] h-[550px] w-[550px] rounded-full bg-gradient-to-r from-purple-600/18 via-violet-500/15 to-pink-500/12 blur-[130px] animate-ambient-drift will-change-transform" />
       </div>
 
-      {/* 3. Mathematical Coordinate & Dot Matrix Grid Layer */}
-      <div className="absolute inset-0 bg-math-grid pointer-events-none opacity-80 dark:opacity-60" />
+      {/* 3. Mathematical Coordinate Dot Matrix Grid Overlay */}
+      <div className="absolute inset-0 bg-math-grid pointer-events-none opacity-90 dark:opacity-75" />
 
       {/* 4. Fine Technical Graph Lattice Overlay */}
-      <div className="absolute inset-0 bg-graph-matrix pointer-events-none opacity-50 dark:opacity-40" />
+      <div className="absolute inset-0 bg-graph-matrix pointer-events-none opacity-60 dark:opacity-50" />
 
-      {/* 5. Dynamic HTML5 Interactive Constellation Canvas */}
+      {/* 5. Dynamic HTML5 Interactive Gradient Constellation Canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 h-full w-full pointer-events-none"
       />
 
-      {/* 6. Dynamic Cursor Spotlight (Follows mouse cursor) */}
+      {/* 6. Dual-Zone Dynamic Cursor Spotlight (Vibrant Core + Radiant Fringes) */}
       <div
         className="absolute inset-0 transition-opacity duration-300 pointer-events-none"
         style={{
-          background: `radial-gradient(550px circle at var(--mouse-x) var(--mouse-y), rgba(var(--spotlight-color), 0.14), transparent 75%)`,
+          background: `
+            radial-gradient(320px circle at var(--mouse-x) var(--mouse-y), rgba(var(--spotlight-color), 0.22), transparent 70%),
+            radial-gradient(720px circle at var(--mouse-x) var(--mouse-y), rgba(14, 165, 233, 0.14), transparent 75%)
+          `,
         }}
       />
 
-      {/* 7. Viewport Edge Vignette Mask */}
+      {/* 7. Viewport Edge Soft Vignette Mask */}
       <div className="absolute inset-0 bg-radial-vignette pointer-events-none" />
 
       {/* 8. Floating Academic LaTeX Formula Glyphs in Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none font-serif opacity-[0.06] dark:opacity-[0.08] text-foreground">
-        <div className="absolute top-[14%] left-[4%] text-2xl lg:text-3xl font-serif italic">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none font-serif opacity-[0.11] dark:opacity-[0.14] text-foreground">
+        <div className="absolute top-[12%] left-[4%] text-2xl lg:text-3xl font-serif italic text-gradient-emerald">
           f(x) = \frac{`{1}`}{`{\\sqrt{2\\pi}\\sigma}`} e^{`{-\\frac{(x-\\mu)^2}{2\\sigma^2}}`}
         </div>
-        <div className="absolute top-[38%] right-[5%] text-2xl lg:text-3xl font-serif italic">
+        <div className="absolute top-[35%] right-[5%] text-2xl lg:text-3xl font-serif italic text-gradient-sky">
           \lim_{`{n \\to \\infty}`} \mathbb{`{P}`}\left(\frac{`{S_n - n\\mu}`}{`{\\sigma\\sqrt{n}}`} \le z\right) = \Phi(z)
         </div>
-        <div className="absolute top-[65%] left-[6%] text-xl lg:text-2xl font-serif italic">
+        <div className="absolute top-[62%] left-[5%] text-xl lg:text-2xl font-serif italic text-gradient-amber">
           \mathcal{`{L}`}_{`{CE}`} = -\sum_{`{i=1}`}^C y_i \log(\hat{`{y}`}_i)
         </div>
-        <div className="absolute bottom-[10%] right-[8%] text-2xl lg:text-3xl font-serif italic">
+        <div className="absolute bottom-[10%] right-[7%] text-2xl lg:text-3xl font-serif italic text-gradient-purple">
           \text{`{Var}`}(X) = \mathbb{`{E}`}[X^2] - (\mathbb{`{E}`}[X])^2
+        </div>
+        <div className="absolute bottom-[28%] left-[30%] text-xl lg:text-2xl font-serif italic text-gradient-emerald hidden lg:block">
+          \theta_{`{t+1}`} = \theta_t - \eta \nabla_\theta \mathcal{`{L}`}(\theta)
         </div>
       </div>
 
       {/* 9. Geometric Academic Drafting Coordinates & Telemetry Crosshairs */}
       <div className="hidden md:block pointer-events-none select-none">
         {/* Top Left */}
-        <div className="absolute top-5 left-7 font-mono text-[11px] tracking-wider text-muted-foreground/60 flex items-center gap-2">
-          <span className="text-emerald-600 dark:text-emerald-400 font-bold">+</span>
+        <div className="absolute top-5 left-7 font-mono text-[11px] tracking-wider text-muted-foreground/75 flex items-center gap-2">
+          <span className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">+</span>
           <span>LAT 22.44° N / LON 88.39° E</span>
-          <span className="text-[9px] px-1.5 py-0.5 rounded border border-border/80 bg-card/60">SYS::RKMRC</span>
+          <span className="text-[9px] px-1.5 py-0.5 rounded border border-emerald-500/30 bg-card/75 text-emerald-700 dark:text-emerald-300 font-semibold shadow-xs">
+            SYS::RKMRC
+          </span>
         </div>
 
         {/* Top Right */}
-        <div className="absolute top-5 right-7 font-mono text-[11px] tracking-wider text-muted-foreground/60 flex items-center gap-2">
-          <span className="text-[9px] px-1.5 py-0.5 rounded border border-border/80 bg-card/60">MATH::STAT_ML</span>
-          <span>STOCHASTIC_GRID::24PX</span>
-          <span className="text-emerald-600 dark:text-emerald-400 font-bold">+</span>
+        <div className="absolute top-5 right-7 font-mono text-[11px] tracking-wider text-muted-foreground/75 flex items-center gap-2">
+          <span className="text-[9px] px-1.5 py-0.5 rounded border border-sky-500/30 bg-card/75 text-sky-700 dark:text-sky-300 font-semibold shadow-xs">
+            MATH::STAT_ML
+          </span>
+          <span>STOCHASTIC_LATTICE::24PX</span>
+          <span className="text-sky-600 dark:text-sky-400 font-bold text-sm">+</span>
         </div>
 
         {/* Bottom Left */}
-        <div className="absolute bottom-5 left-7 font-mono text-[11px] tracking-wider text-muted-foreground/60 flex items-center gap-2">
-          <span className="text-emerald-600 dark:text-emerald-400 font-bold">+</span>
+        <div className="absolute bottom-5 left-7 font-mono text-[11px] tracking-wider text-muted-foreground/75 flex items-center gap-2">
+          <span className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">+</span>
           <span>EST. RKMRC NDPR · CALCUTTA UNIV</span>
         </div>
 
         {/* Bottom Right */}
-        <div className="absolute bottom-5 right-7 font-mono text-[11px] tracking-wider text-muted-foreground/60 flex items-center gap-2">
+        <div className="absolute bottom-5 right-7 font-mono text-[11px] tracking-wider text-muted-foreground/75 flex items-center gap-2">
           <span>SEC::AUTONOMOUS_DOSSIER</span>
-          <span className="text-emerald-600 dark:text-emerald-400 font-bold">+</span>
+          <span className="text-amber-600 dark:text-amber-400 font-bold text-sm">+</span>
         </div>
       </div>
     </div>

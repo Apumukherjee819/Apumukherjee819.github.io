@@ -50,8 +50,11 @@ function AboutPage() {
               B.Sc. in Statistics (Major) · Computer Science (Minor)
             </p>
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded border border-border bg-card/60 px-3 py-1 text-xs font-mono text-muted-foreground">
-            <span className="h-2 w-2 rounded-full bg-emerald-600" />
+          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-sky-500/10 px-3.5 py-1 text-xs font-mono text-emerald-800 dark:text-emerald-300 shadow-xs">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600 dark:bg-emerald-400"></span>
+            </span>
             Active AY 2025–2029
           </span>
         </div>
