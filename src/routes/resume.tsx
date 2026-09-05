@@ -60,7 +60,11 @@ function ResumePage() {
       </div>
 
       {/* Official Academic CV Sheet */}
-      <div className="rounded-md border border-border/80 bg-card p-6 shadow-xs sm:p-10 font-serif text-foreground">
+      <div className="relative rounded-md border border-border/80 bg-card/90 backdrop-blur-md p-6 shadow-md sm:p-10 font-serif text-foreground">
+        {/* Subtle Watermark Corner Crosshair */}
+        <div className="absolute top-3 right-3 font-mono text-[10px] text-muted-foreground/40 select-none">
+          + DOC::ACAD_CV
+        </div>
         {/* CV Header */}
         <header className="border-b border-foreground/30 pb-5 text-center space-y-2">
           <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

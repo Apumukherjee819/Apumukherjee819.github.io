@@ -13,6 +13,7 @@ import { Moon, Sun, Mail, Menu, X, Compass } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { BackgroundSystem } from "../lib/BackgroundSystem";
 import { site, pages } from "../data/portfolio";
 
 function NotFoundComponent() {

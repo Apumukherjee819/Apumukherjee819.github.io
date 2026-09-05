@@ -70,12 +70,15 @@ function AboutPage() {
 
       {/* Institutional Affiliations & Core Summary Grid */}
       <section className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-md border border-border/80 bg-card p-4 transition-colors">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            <GraduationCap size={15} className="text-emerald-600" />
-            Undergraduate
+        <div className="academic-card space-y-2 group">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span className="flex items-center gap-2">
+              <GraduationCap size={15} className="text-emerald-600 dark:text-emerald-400" />
+              Undergraduate
+            </span>
+            <span className="font-mono text-[10px] opacity-40 group-hover:opacity-80 transition-opacity">01</span>
           </div>
-          <p className="mt-2 font-display text-lg font-bold text-foreground">9.46 Cumulative CPI</p>
+          <p className="mt-2 font-display text-xl font-bold text-foreground">9.46 Cumulative CPI</p>
           <p className="mt-1 font-serif text-xs text-muted-foreground">
             Major: 9.45 (Current) · Minor (CS): 9.50 (Current)
           </p>
@@ -87,12 +90,15 @@ function AboutPage() {
           </Link>
         </div>
 
-        <div className="rounded-md border border-border/80 bg-card p-4 transition-colors">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            <ShieldCheck size={15} className="text-sky-600" />
-            Research Affiliations
+        <div className="academic-card space-y-2 group" style={{ borderLeftColor: "hsl(215, 60%, 45%)" }}>
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span className="flex items-center gap-2">
+              <ShieldCheck size={15} className="text-sky-600 dark:text-sky-400" />
+              Research Affiliations
+            </span>
+            <span className="font-mono text-[10px] opacity-40 group-hover:opacity-80 transition-opacity">02</span>
           </div>
-          <p className="mt-2 font-display text-lg font-bold text-foreground">IIT Delhi & ISI Kolkata</p>
+          <p className="mt-2 font-display text-xl font-bold text-foreground">IIT Delhi & ISI Kolkata</p>
           <p className="mt-1 font-serif text-xs text-muted-foreground">
             BUILD BANK 2026 (ARTHASETU 2.0) · IDEAS TIH (PSO Disaster Model)
           </p>
@@ -104,12 +110,15 @@ function AboutPage() {
           </Link>
         </div>
 
-        <div className="rounded-md border border-border/80 bg-card p-4 transition-colors">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            <Award size={15} className="text-amber-600" />
-            Competitive Standings
+        <div className="academic-card space-y-2 group" style={{ borderLeftColor: "hsl(35, 65%, 45%)" }}>
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span className="flex items-center gap-2">
+              <Award size={15} className="text-amber-600 dark:text-amber-400" />
+              Competitive Standings
+            </span>
+            <span className="font-mono text-[10px] opacity-40 group-hover:opacity-80 transition-opacity">03</span>
           </div>
-          <p className="mt-2 font-display text-lg font-bold text-foreground">LeetCode & Codeforces</p>
+          <p className="mt-2 font-display text-xl font-bold text-foreground">LeetCode & Codeforces</p>
           <p className="mt-1 font-serif text-xs text-muted-foreground">
             300+ LeetCode Solved (50-Day Badge) · Codeforces Active Newbie
           </p>
@@ -131,7 +140,7 @@ function AboutPage() {
             href={site.socials.github.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-md border border-border bg-card p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent"
+            className="flex items-center justify-between rounded-md border border-border/80 bg-card/80 backdrop-blur-sm p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent/80 hover:shadow-sm"
           >
             <span className="flex items-center gap-2">
               <Github size={16} />
@@ -144,7 +153,7 @@ function AboutPage() {
             href={site.socials.codeforces.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-md border border-border bg-card p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent"
+            className="flex items-center justify-between rounded-md border border-border/80 bg-card/80 backdrop-blur-sm p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent/80 hover:shadow-sm"
           >
             <span className="flex items-center gap-2">
               <Code2 size={16} />
@@ -157,7 +166,7 @@ function AboutPage() {
             href={site.socials.leetcode.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-md border border-border bg-card p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent"
+            className="flex items-center justify-between rounded-md border border-border/80 bg-card/80 backdrop-blur-sm p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent/80 hover:shadow-sm"
           >
             <span className="flex items-center gap-2">
               <BookOpen size={16} />
@@ -170,7 +179,7 @@ function AboutPage() {
             href={site.socials.linkedin.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-md border border-border bg-card p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent"
+            className="flex items-center justify-between rounded-md border border-border/80 bg-card/80 backdrop-blur-sm p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent/80 hover:shadow-sm"
           >
             <span className="flex items-center gap-2">
               <Linkedin size={16} />
@@ -185,17 +194,17 @@ function AboutPage() {
       <section>
         <SectionHeading>Curriculum & Portfolio Catalog</SectionHeading>
         <Rule />
-        <div className="divide-y divide-border/60 rounded-md border border-border bg-card">
+        <div className="divide-y divide-border/60 rounded-md border border-border/80 bg-card/80 backdrop-blur-sm shadow-sm overflow-hidden">
           {pages.map((page, idx) => (
             <Link
               key={page.path}
               to={page.path}
-              className="group flex flex-col justify-between p-4 transition-colors hover:bg-accent sm:flex-row sm:items-center"
+              className="group flex flex-col justify-between p-4 transition-colors hover:bg-accent/70 sm:flex-row sm:items-center"
             >
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xs text-muted-foreground">0{idx + 1}.</span>
-                  <span className="font-display text-base font-bold text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
+                  <span className="font-display text-base font-bold text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                     {page.label}
                   </span>
                 </div>
@@ -203,7 +212,7 @@ function AboutPage() {
                   {page.description}
                 </p>
               </div>
-              <span className="mt-2 text-xs font-medium text-muted-foreground group-hover:text-foreground sm:mt-0 sm:pl-4">
+              <span className="mt-2 text-xs font-medium text-muted-foreground group-hover:text-foreground sm:mt-0 sm:pl-4 transition-colors">
                 Access Document →
               </span>
             </Link>
