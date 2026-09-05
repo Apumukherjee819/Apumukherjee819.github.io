@@ -330,8 +330,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <BackgroundSystem />
       <Header />
-      <main className="min-h-screen px-6 pb-12 pt-24 sm:px-8 sm:pt-28">
+      <main className="relative min-h-screen px-6 pb-12 pt-24 sm:px-8 sm:pt-28">
         <div className="mx-auto max-w-4xl">
           <Outlet />
         </div>

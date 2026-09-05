@@ -1,4 +1,4 @@
-﻿import { execSync } from "child_process";
+import { execSync } from "child_process";
 import path from "path";
 import fs from "fs";
 
@@ -11,14 +11,27 @@ try {
     fs.rmSync(gitDist, { recursive: true, force: true });
   }
 
-  execSync("git init", { cwd: DIST_DIR, stdio: "inherit" });
-  execSync("git checkout -b gh-pages", { cwd: DIST_DIR, stdio: "inherit" });
-  execSync("git add .", { cwd: DIST_DIR, stdio: "inherit" });
-  execSync('git commit -m "deploy: update academic portfolio live site"', { cwd: DIST_DIR, stdio: "inherit" });
-  execSync("git config http.postBuffer 524288000", { cwd: DIST_DIR, stdio: "inherit" });
-  execSync("git remote add origin https://github.com/Apumukherjee819/Apumukherjee819.github.io.git", { cwd: DIST_DIR, stdio: "inherit" });
-  execSync("git push -f origin gh-pages", { cwd: DIST_DIR, stdio: "inherit" });
-  fs.rmSync(gitDist, { recursive: true, force: true });
+  const normalizedDist = DIST_DIR.replace(/\\/g, "/");
+  try {
+    execSync(`git config --global --add safe.directory "${normalizedDist}"`, { stdio: "ignore" });
+    execSync(`git config --global --add safe.directory *`, { stdio: "ignore" });
+  } catch {}
+
+  const gitCmd = (cmd) => execSync(`git -c safe.directory=* ${cmd}`, { cwd: DIST_DIR, stdio: "inherit" });
+
+  gitCmd("init");
+  gitCmd("checkout -b gh-pages");
+  gitCmd('config user.name "Apumukherjee819"');
+  gitCmd('config user.email "arpanmukherjeegithub2026@gmail.com"');
+  gitCmd("config http.postBuffer 524288000");
+  gitCmd("add .");
+  gitCmd('commit -m "deploy: update academic portfolio live site"');
+  gitCmd("remote add origin https://github.com/Apumukherjee819/Apumukherjee819.github.io.git");
+  gitCmd("push -f origin gh-pages");
+  
+  if (fs.existsSync(gitDist)) {
+    fs.rmSync(gitDist, { recursive: true, force: true });
+  }
   console.log("🎉 Successfully deployed to gh-pages branch!");
 } catch (err) {
   console.error("Deploy failed:", err.message);
