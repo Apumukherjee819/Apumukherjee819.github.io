@@ -48,7 +48,7 @@
   /* Scholarly archival light palette */
   --background: oklch(0.985 0.003 85);
   --foreground: oklch(0.16 0.015 60);
-  --card: oklch(0.995 0.002 85 / 0.88);
+  --card: oklch(0.995 0.002 85 / 0.82);
   --card-foreground: oklch(0.16 0.015 60);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.16 0.015 60);
@@ -68,15 +68,15 @@
   --academic-green: hsl(142, 65%, 30%);
   --academic-navy: hsl(220, 60%, 25%);
   --spotlight-color: 16, 185, 129;
-  --grid-line-color: rgba(0, 0, 0, 0.065);
-  --grid-dot-color: rgba(0, 0, 0, 0.12);
+  --grid-line-color: rgba(15, 23, 42, 0.08);
+  --grid-dot-color: rgba(15, 23, 42, 0.18);
 }
 
 .dark {
   /* Scholarly obsidian dark palette */
   --background: oklch(0.11 0.012 60);
   --foreground: oklch(0.95 0.005 85);
-  --card: oklch(0.15 0.012 60 / 0.85);
+  --card: oklch(0.15 0.012 60 / 0.80);
   --card-foreground: oklch(0.95 0.005 85);
   --popover: oklch(0.15 0.012 60);
   --popover-foreground: oklch(0.95 0.005 85);
@@ -96,8 +96,8 @@
   --academic-green: hsl(142, 60%, 48%);
   --academic-navy: hsl(215, 60%, 65%);
   --spotlight-color: 52, 211, 153;
-  --grid-line-color: rgba(255, 255, 255, 0.045);
-  --grid-dot-color: rgba(255, 255, 255, 0.09);
+  --grid-line-color: rgba(255, 255, 255, 0.075);
+  --grid-dot-color: rgba(255, 255, 255, 0.22);
 }
 
 @layer base {
