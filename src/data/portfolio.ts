@@ -458,6 +458,15 @@ export const resume = {
       description:
         "The analysis encompasses 10,000 geo-spatial observations across India's complete geographic extent (8°N to 37°N latitude, 68°E to 97°E longitude). A multi-factor flood risk model incorporating rainfall intensity, river discharge, elevation, water levels, and population density was developed and achieved 96.7% accuracy when validated against 5,057 historical flood occurrences.",
     },
+    {
+      title: "SpectraBDH : Visualizing Spectral Radius Memory interference and latent Reasoning",
+      period: "Sep,2026",
+      association: "IIT KGP , DATAFORGE,2026",
+      github: "https://github.com/Apumukherjee819/SpectraBDH-Visualizing-Spectral-Radius-Memory-Interference-and-Latent-Reasoning",
+      metrics: "Dragon-Hatchling, Mamba Architecture, NeurIPS-2026,Latent-Reasoning",
+      description:
+        "SpectraBDH is an interactive, sub-16ms vector explainer built for the DataForge 2026 Pathway Track.It proves why classical State Space Models suffer exponential associative forgetting ($\rho(A)^L$) and visualizes how Pathway's Dragon Hatchling (BDH) synaptic plasticity and BDH CQ continuous latent reasoning eliminate interference without KV-cache explosion.",
+    },
   ],
   technicalSkills: {
     languages: "C, C++, Python, MSSQL, R",
@@ -480,8 +489,9 @@ export const resume = {
     },
   ],
   achievements: [
-    "Leetcode Rank 4,76,886 [Over 300+ Question Solved at LeetCode, Achieve the 50 day badge], Over 100 Database problem Solver 2026",
+    "Leetcode Rank 4,76,886 [Over 300+ Question Solved at LeetCode, Achieve the 50 day badge, 100 day badge], Over 100 Database problem Solver 2026",
     "Problem Solver on the SQLPad Platform, 100+ Question Solved on the Platform SQLPad, 2026",
     "Problem Solver in DataLemur (150+ database Interview Question Solved), Over 100 Database problem Solved 2026",
+    "Codeforces rating 1200,pupil, Over 150+ problems are solved [solved in python3 with contest]"
   ],
 };
