@@ -60,16 +60,19 @@ function Rule() {
 // =========================================================================
 function HeroTypewriter3D() {
   const fullText = "This is My portfolio, accounting my dump thoughts";
-  const [displayedText, setDisplayedText] = useState("");
+  // Start with full text so SSR and first paint show it immediately
+  const [displayedText, setDisplayedText] = useState(fullText);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement>(null);
 
-  // Typewriter effect
+  // Typewriter effect: after a brief pause, clear and re-type for the animation
   useEffect(() => {
     let index = 0;
     let timer: any;
+    let cancelled = false;
 
     const typeNextChar = () => {
+      if (cancelled) return;
       if (index < fullText.length) {
         setDisplayedText(fullText.slice(0, index + 1));
         const char = fullText[index];
@@ -79,8 +82,18 @@ function HeroTypewriter3D() {
       }
     };
 
-    timer = setTimeout(typeNextChar, 100);
-    return () => clearTimeout(timer);
+    // Brief pause showing full text, then clear and re-type
+    timer = setTimeout(() => {
+      if (cancelled) return;
+      index = 0;
+      setDisplayedText("");
+      typeNextChar();
+    }, 1200);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, []);
 
   // Real-time 3D Perspective Mouse Tilt
@@ -103,11 +116,11 @@ function HeroTypewriter3D() {
       ref={heroRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="w-full mb-8 pt-2"
+      className="w-full"
       style={{ perspective: "1200px" }}
     >
       <div
-        className="hero-3d-card hud-corner-brackets w-full p-6 sm:p-8 md:p-10 rounded-xl relative overflow-hidden"
+        className="hero-3d-card hud-corner-brackets w-full p-4 sm:p-6 md:p-8 rounded-xl relative overflow-hidden"
         style={{
           transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
         }}
@@ -284,7 +297,7 @@ function GetInTouchSection() {
 
 function AboutPage() {
   return (
-    <div className="space-y-10 perspective-container">
+    <div className="space-y-8 perspective-container">
       {/* 1. 3D Holographic Typewriter Banner (Directly at the start of writings) */}
       <AnimatedSection animation="hologramPop">
         <HeroTypewriter3D />

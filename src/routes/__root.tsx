@@ -125,7 +125,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body style={{ margin: 0, padding: 0 }}>
         {children}
         <Scripts />
       </body>
@@ -169,7 +169,7 @@ function Header() {
   return (
     <header className="fixed left-0 right-0 top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-lg">
       <div className="header-gradient-bar" />
-      <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3 sm:px-8">
+      <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-2 sm:px-8">
         {/* Title / Identity */}
         <div className="flex items-center gap-3">
           <Link
@@ -332,6 +332,10 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const location = useLocation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ScrollProvider pathname={location.pathname}>
@@ -339,7 +343,7 @@ function RootComponent() {
         {/* Render 3D mathematical sweep scene across all pages */}
         <Scene3D />
         <Header />
-        <main className="relative min-h-screen px-4 sm:px-8 pb-16 pt-16 sm:pt-18">
+        <main className="relative min-h-screen px-4 sm:px-8 pb-16 pt-1">
           <div className="mx-auto max-w-4xl">
             <Outlet />
           </div>

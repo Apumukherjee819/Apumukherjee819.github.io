@@ -549,7 +549,7 @@ function Scene() {
     let start = Date.now();
     let animId: number;
     const loop = () => {
-      const elapsed = (Date.now() - start) / 1800;
+      const elapsed = (Date.now() - start) / 400;
       const val = Math.min(elapsed, 1);
       const eased = val * val * (3 - 2 * val);
       setIntro(eased);
