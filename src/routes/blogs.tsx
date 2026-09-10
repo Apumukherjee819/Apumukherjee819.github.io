@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BookOpen, ExternalLink, Tag, Clock, Calendar } from "lucide-react";
+import { BookOpen, ExternalLink, Tag, Clock, Calendar, Terminal } from "lucide-react";
 import { blogs, site } from "../data/portfolio";
+import { AnimatedSection } from "../lib/PageTransition";
 
 export const Route = createFileRoute("/blogs")({
   head: () => ({
@@ -26,89 +27,85 @@ export const Route = createFileRoute("/blogs")({
 
 function BlogsPage() {
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 perspective-container">
       {/* Page Header */}
-      <section>
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl [font-variant:small-caps]">
-            {blogs.title} & Technical Dispatches
-          </h1>
-          <span className="font-mono text-xs text-muted-foreground">
-            Essays · Problem Notes · Algorithmic Analysis
-          </span>
-        </div>
-        <div className="academic-rule" />
-        <p className="font-serif text-base text-foreground leading-relaxed">
-          {blogs.description}
-        </p>
-      </section>
+      <AnimatedSection animation="hologramPop">
+        <section>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+            <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl [font-variant:small-caps]">
+              {blogs.title} & Technical Notes
+            </h1>
+            <span className="scifi-hud-badge">
+              <span className="scifi-pulse-dot" />
+              PUBLICATIONS & ESSAYS
+            </span>
+          </div>
+          <div className="academic-rule" />
+          <p className="font-serif text-base text-foreground leading-relaxed">
+            {blogs.description}
+          </p>
+        </section>
+      </AnimatedSection>
 
-      {/* Blog Articles List */}
-      <div className="space-y-6">
-        {blogs.posts.map((post) => (
-          <article
+      {/* Alternating Blog Posts */}
+      <div className="space-y-8">
+        {blogs.posts.map((post, idx) => (
+          <AnimatedSection
             key={post.slug}
-            className="academic-card space-y-3 transition-all hover:border-foreground/40 hover:bg-accent/40"
+            animation={idx % 2 === 0 ? "cyberSlideLeft" : "cyberSlideRight"}
+            delay={idx * 0.1}
           >
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-mono text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <Calendar size={13} />
-                {post.date}
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-1">
-                <Clock size={13} />
-                {post.readTime}
-              </span>
-            </div>
+            <article
+              className="academic-card space-y-4 card-3d hud-corner-brackets"
+              style={{
+                borderLeftColor:
+                  idx === 0 ? "var(--cyber-emerald)" : "var(--cyber-cyan)",
+              }}
+            >
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+                <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
+                  {post.title}
+                </h2>
+                <div className="flex items-center gap-3 font-mono text-xs text-muted-foreground">
+                  <span>{post.date}</span>
+                  <span>•</span>
+                  <span>{post.readTime}</span>
+                </div>
+              </div>
 
-            <h2 className="font-display text-xl font-bold text-foreground">
-              <a
-                href={post.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400 inline-flex items-center gap-2"
-              >
-                <span>{post.title}</span>
-                <span className="text-xs text-muted-foreground">↗</span>
-              </a>
-            </h2>
+              <div className="flex flex-wrap gap-1.5">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1 rounded-sm border border-border/80 bg-secondary/60 px-2 py-0.5 font-mono text-[11px] text-secondary-foreground"
+                  >
+                    <span className="h-1 w-1 rounded-full bg-cyber-cyan" />
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-            <p className="font-serif text-base leading-relaxed text-foreground">
-              {post.excerpt}
-            </p>
+              <p className="font-serif text-base leading-relaxed text-foreground">
+                {post.excerpt}
+              </p>
 
-            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-border/50">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center gap-1 rounded border border-border/70 bg-background px-2 py-0.5 font-mono text-[11px] text-muted-foreground"
-                >
-                  <Tag size={10} />
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </article>
+              {post.url && (
+                <div className="pt-2">
+                  <a
+                    href={post.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3.5 py-1.5 font-mono text-xs font-semibold text-foreground transition-all hover:border-cyber-cyan hover:bg-accent"
+                  >
+                    <BookOpen size={14} className="text-cyber-cyan" />
+                    Read Note on LeetCode / External →
+                  </a>
+                </div>
+              )}
+            </article>
+          </AnimatedSection>
         ))}
       </div>
-
-      {/* External Dispatches Notice */}
-      <section className="rounded-md border border-border/80 bg-card p-5 space-y-2 text-sm font-serif">
-        <p className="text-foreground">
-          Additional algorithm breakdowns, dynamic programming solutions, and statistics proofs are actively published on{" "}
-          <a
-            href={site.socials.leetcode.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-emerald-700 underline underline-offset-4 hover:text-foreground dark:text-emerald-400"
-          >
-            LeetCode Discuss
-          </a>
-          . Standalone long-form research manuscripts and monographs will be indexed here as they are peer-reviewed.
-        </p>
-      </section>
     </div>
   );
 }
-

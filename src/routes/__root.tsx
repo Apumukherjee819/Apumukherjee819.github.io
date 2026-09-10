@@ -9,11 +9,13 @@ import {
   useLocation,
 } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { Moon, Sun, Mail, Menu, X, Compass } from "lucide-react";
+import { Moon, Sun, Mail, Menu, X, Compass, Terminal, Shield, Sparkles } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Scene3D } from "../lib/Scene3D";
 import { BackgroundSystem } from "../lib/BackgroundSystem";
+import { ScrollProvider } from "../lib/ScrollContext";
 import { site, pages } from "../data/portfolio";
 
 function NotFoundComponent() {
@@ -107,7 +109,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,600&display=swap",
       },
     ],
   }),
@@ -165,26 +167,26 @@ function Header() {
   const pageLabel = currentPage ? currentPage.label : location.pathname === "/" ? "About & Overview" : "";
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-40 border-b border-border/60 bg-background/90 backdrop-blur-md">
+    <header className="fixed left-0 right-0 top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-lg">
       <div className="header-gradient-bar" />
-      <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3.5 sm:px-8">
+      <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3 sm:px-8">
         {/* Title / Identity */}
         <div className="flex items-center gap-3">
           <Link
             to="/"
-            className="group flex items-baseline gap-2 text-foreground transition-opacity hover:opacity-80"
+            className="group flex items-baseline gap-2 text-foreground transition-opacity hover:opacity-85"
           >
             <span className="font-display text-lg font-bold tracking-tight text-foreground sm:text-xl">
               {site.name}
             </span>
             <span className="hidden font-serif text-xs italic text-muted-foreground sm:inline">
-              · RKMRC Narendrapur
+              • RKMRC Narendrapur
             </span>
           </Link>
           {pageLabel && (
-            <span className="hidden items-center gap-1.5 text-xs text-muted-foreground md:flex">
+            <span className="hidden items-center gap-1.5 text-xs text-muted-foreground md:flex font-mono">
               <span>/</span>
-              <span className="font-medium text-foreground">{pageLabel}</span>
+              <span className="font-semibold text-cyber-cyan">{pageLabel}</span>
             </span>
           )}
         </div>
@@ -195,50 +197,50 @@ function Header() {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle navigation menu"
-            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card/60 px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card/60 px-2.5 py-1.5 text-xs font-mono font-medium text-foreground transition-colors hover:border-cyber-cyan/50 hover:bg-accent"
           >
-            {menuOpen ? <X size={14} /> : <Compass size={14} />}
-            <span className="hidden sm:inline">Sections</span>
+            {menuOpen ? <X size={14} className="text-cyber-cyan" /> : <Compass size={14} className="text-cyber-cyan" />}
+            <span className="hidden sm:inline">SECTIONS</span>
           </button>
 
           {/* Theme switcher */}
           <button
             onClick={toggle}
             aria-label="Toggle dark mode"
-            className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card/60 text-foreground transition-colors hover:bg-accent"
+            className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card/60 text-foreground transition-colors hover:border-cyber-cyan/50 hover:bg-accent"
           >
-            {theme === "light" ? <Moon size={15} strokeWidth={1.75} /> : <Sun size={15} strokeWidth={1.75} />}
+            {theme === "light" ? <Moon size={15} strokeWidth={1.75} /> : <Sun size={15} strokeWidth={1.75} className="text-cyber-amber" />}
           </button>
         </div>
       </div>
 
       {/* Expanded Sections Directory */}
       {menuOpen && (
-        <div className="border-t border-border bg-background/95 px-6 py-4 shadow-lg backdrop-blur-md sm:px-8">
+        <div className="border-t border-border bg-background/95 px-6 py-4 shadow-xl backdrop-blur-xl sm:px-8 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="mx-auto max-w-4xl">
-            <p className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-              Document Directory
+            <p className="mb-2.5 font-mono text-[10px] font-bold uppercase tracking-widest text-cyber-cyan">
+              // QUANTUM DOSSIER DIRECTORY //
             </p>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5">
               <Link
                 to="/"
                 onClick={() => setMenuOpen(false)}
-                className={`rounded px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                className={`rounded px-2.5 py-1.5 font-mono text-xs font-medium transition-colors ${
                   location.pathname === "/"
-                    ? "bg-accent text-foreground font-semibold"
+                    ? "bg-accent text-cyber-cyan font-bold border border-cyber-cyan/40"
                     : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
                 }`}
               >
-                About & Overview
+                Overview
               </Link>
               {pages.map((p) => (
                 <Link
                   key={p.path}
                   to={p.path}
                   onClick={() => setMenuOpen(false)}
-                  className={`rounded px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                  className={`rounded px-2.5 py-1.5 font-mono text-xs font-medium transition-colors ${
                     location.pathname === p.path
-                      ? "bg-accent text-foreground font-semibold"
+                      ? "bg-accent text-cyber-cyan font-bold border border-cyber-cyan/40"
                       : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
                   }`}
                 >
@@ -255,7 +257,7 @@ function Header() {
 
 function ColophonFooter() {
   return (
-    <footer className="mt-20 border-t border-border bg-background/60 py-12 text-xs text-muted-foreground">
+    <footer className="mt-20 border-t border-border bg-background/70 py-12 text-xs text-muted-foreground backdrop-blur-md">
       <div className="mx-auto max-w-4xl px-8 space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
@@ -263,49 +265,49 @@ function ColophonFooter() {
               {site.name}
             </p>
             <p className="font-serif text-xs text-muted-foreground">
-              B.Sc. (Hons.) in Statistics · Minor in Computer Science
+              B.Sc. (Hons.) in Statistics • Minor in Computer Science
             </p>
             <p className="font-serif text-xs text-muted-foreground">
               Ramakrishna Mission Residential College (Autonomous), Narendrapur
             </p>
           </div>
-          <div className="flex flex-wrap gap-x-5 gap-y-1 font-serif text-xs text-muted-foreground sm:text-right">
-            <a href={`mailto:${site.emailPrimary}`} className="hover:text-foreground hover:underline">
+          <div className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs text-muted-foreground sm:text-right">
+            <a href={`mailto:${site.emailPrimary}`} className="hover:text-cyber-cyan hover:underline">
               {site.emailPrimary}
             </a>
             <a
               href={site.socials.github.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground hover:underline"
+              className="hover:text-cyber-cyan hover:underline"
             >
-              GitHub ↗
+              GitHub →
             </a>
             <a
               href={site.socials.codeforces.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground hover:underline"
+              className="hover:text-cyber-cyan hover:underline"
             >
-              Codeforces ↗
+              Codeforces →
             </a>
             <a
               href={site.socials.linkedin.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground hover:underline"
+              className="hover:text-cyber-cyan hover:underline"
             >
-              LinkedIn ↗
+              LinkedIn →
             </a>
           </div>
         </div>
 
         <div className="flex flex-col gap-2 border-t border-border/40 pt-4 text-[11px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
-            Affiliations: BUILD BANK 2026 (IIT Delhi) · IDEAS TIH (ISI Kolkata) · Royal Statistical Society (UK).
+            Affiliations: BUILD BANK 2026 (IIT Delhi) • IDEAS TIH (ISI Kolkata) • Royal Statistical Society (UK).
           </p>
-          <p className="font-mono text-[10px]">
-            Typeset in Computer Modern & Source Serif
+          <p className="font-mono text-[10px] text-cyber-cyan">
+            TYPESET IN COMPUTER MODERN // QUANTUM HOLOGRAPHY ENGINE
           </p>
         </div>
       </div>
@@ -319,27 +321,32 @@ function FloatingEmail() {
       href={`mailto:${site.emailPrimary}`}
       aria-label="Send direct academic email"
       title="Contact via email"
-      className="fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-md border border-border bg-card text-foreground shadow-sm transition-all hover:scale-105 hover:bg-accent"
+      className="fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-md border border-border bg-card text-foreground shadow-lg transition-all hover:scale-108 hover:border-cyber-cyan hover:shadow-cyan-500/20"
     >
-      <Mail size={18} strokeWidth={1.5} />
+      <Mail size={18} strokeWidth={1.5} className="text-cyber-cyan" />
     </a>
   );
 }
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BackgroundSystem />
-      <Header />
-      <main className="relative min-h-screen px-6 pb-12 pt-24 sm:px-8 sm:pt-28">
-        <div className="mx-auto max-w-4xl">
-          <Outlet />
-        </div>
-      </main>
-      <ColophonFooter />
-      <FloatingEmail />
+      <ScrollProvider pathname={location.pathname}>
+        <BackgroundSystem />
+        {/* Render 3D mathematical sweep scene across all pages */}
+        <Scene3D />
+        <Header />
+        <main className="relative min-h-screen px-4 sm:px-8 pb-16 pt-16 sm:pt-18">
+          <div className="mx-auto max-w-4xl">
+            <Outlet />
+          </div>
+        </main>
+        <ColophonFooter />
+        <FloatingEmail />
+      </ScrollProvider>
     </QueryClientProvider>
   );
 }

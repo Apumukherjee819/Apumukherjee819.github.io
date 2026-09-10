@@ -1,6 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Github, Linkedin, Code2, ExternalLink, Mail, Phone, BookOpen, GraduationCap, Award, FileText, ArrowRight, ShieldCheck } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import {
+  Github,
+  Linkedin,
+  Code2,
+  ExternalLink,
+  Mail,
+  Send,
+  GraduationCap,
+  Award,
+  ArrowRight,
+  ShieldCheck,
+  Terminal,
+  Cpu,
+  Sparkles,
+  Activity,
+  Layers,
+  Binary
+} from "lucide-react";
 import { about, pages, site } from "../data/portfolio";
+import { AnimatedSection, StaggerContainer } from "../lib/PageTransition";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,7 +45,7 @@ export const Route = createFileRoute("/")({
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="academic-section-heading mt-10 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+    <h2 className="academic-section-heading mt-8 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
       {children}
     </h2>
   );
@@ -36,270 +55,376 @@ function Rule() {
   return <div className="academic-rule" />;
 }
 
-function AboutPage() {
+// =========================================================================
+// Seamless 3D Holographic Typewriter Banner (Starts directly with page writings!)
+// =========================================================================
+function HeroTypewriter3D() {
+  const fullText = "This is My portfolio, accounting my dump thoughts";
+  const [displayedText, setDisplayedText] = useState("");
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  // Typewriter effect
+  useEffect(() => {
+    let index = 0;
+    let timer: any;
+
+    const typeNextChar = () => {
+      if (index < fullText.length) {
+        setDisplayedText(fullText.slice(0, index + 1));
+        const char = fullText[index];
+        index++;
+        const delay = char === "," ? 280 : char === " " ? 75 : 38;
+        timer = setTimeout(typeNextChar, delay);
+      }
+    };
+
+    timer = setTimeout(typeNextChar, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Real-time 3D Perspective Mouse Tilt
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotY = (x / (rect.width / 2)) * 6; // max 6 deg
+    const rotX = -(y / (rect.height / 2)) * 6; // max 6 deg
+    setTilt({ x: rotX, y: rotY });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+  };
+
   return (
-    <div className="space-y-12">
-      {/* Header Profile / Academic Identity */}
-      <section className="space-y-4">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-          <div>
-            <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Arpan Mukherjee
-            </h1>
-            <p className="font-serif text-lg text-muted-foreground">
-              B.Sc. in Statistics (Major) · Computer Science (Minor)
-            </p>
-          </div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-sky-500/10 px-3.5 py-1 text-xs font-mono text-emerald-800 dark:text-emerald-300 shadow-xs">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600 dark:bg-emerald-400"></span>
-            </span>
-            Active AY 2025–2029
+    <div
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="w-full mb-8 pt-2"
+      style={{ perspective: "1200px" }}
+    >
+      <div
+        className="hero-3d-card hud-corner-brackets w-full p-6 sm:p-8 md:p-10 rounded-xl relative overflow-hidden"
+        style={{
+          transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        }}
+      >
+        {/* Top HUD Telemetry Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-2.5 mb-4 font-mono text-[10px] sm:text-xs text-muted-foreground">
+          <span className="flex items-center gap-1.5 text-cyber-cyan font-bold uppercase tracking-wider">
+            <Activity size={13} className="text-cyber-cyan animate-pulse" />
+            [SYS_STREAM: ACTIVE]
+          </span>
+          <span className="hidden sm:inline text-muted-foreground/80 font-mono text-[11px]">
+            RKMRC NARENDRAPUR // STATISTICAL COMPUTING
+          </span>
+          <span className="scifi-hud-badge py-0.5 px-2 text-[10px]">
+            <span className="scifi-pulse-dot" />
+            QUANTUM DOSSIER v4.2
           </span>
         </div>
-        <p className="font-serif text-sm italic text-muted-foreground">
-          Ramakrishna Mission Residential College (Autonomous), Narendrapur · University of Calcutta
-        </p>
-        <Rule />
 
-        {/* Narrative Biography */}
-        <div className="space-y-4 font-serif text-base leading-relaxed text-foreground sm:text-lg">
-          {about.paragraphs.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
+        {/* 3D Holographic Typewriter Heading */}
+        <div className="py-2 sm:py-4">
+          <h1 className="scifi-3d-huge-text text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground leading-[1.18] tracking-tight">
+            <span>{displayedText}</span>
+            <span className="typewriter-cursor text-cyber-cyan">▋</span>
+          </h1>
         </div>
-      </section>
 
-      {/* Institutional Affiliations & Core Summary Grid */}
-      <section className="grid gap-4 sm:grid-cols-3">
-        <div className="academic-card space-y-2 group">
+        {/* Subtitle & Telemetry Metrics */}
+        <div className="mt-3 pt-3 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-xs text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Terminal size={14} className="text-cyber-emerald" />
+            <span className="text-foreground font-semibold">Arpan Mukherjee</span>
+            <span className="text-muted-foreground">• Statistics & Computer Science</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-cyber-cyan text-[11px]">
+            <Binary size={13} />
+            <span>3D MATHEMATICAL MANIFOLDS ACTIVE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// =========================================================================
+// Get In Touch Contact Section (Academic / Cybernetic Design)
+// =========================================================================
+function GetInTouchSection() {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+    const subject = encodeURIComponent(`Academic Inquiry from ${formData.name || "Colleague"}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    window.location.href = `mailto:${site.emailPrimary}?subject=${subject}&body=${body}`;
+    setStatus("sent");
+    setTimeout(() => setStatus("idle"), 6000);
+  };
+
+  return (
+    <section id="contact" className="mt-16 border-t border-border/60 pt-10 space-y-6">
+      {/* 1. Academic Heading */}
+      <div className="space-y-1">
+        <div className="flex items-center justify-between border-b border-border/80 pb-2">
+          <h2 className="font-serif text-2xl font-bold tracking-widest text-foreground uppercase sm:text-3xl">
+            GET IN TOUCH
+          </h2>
+          <span className="font-mono text-[10px] text-cyber-cyan tracking-wider">[COMM.CHANNEL]</span>
+        </div>
+        <p className="font-serif text-sm italic text-muted-foreground pt-1">
+          Reach out directly, or send a message through the form below.
+        </p>
+      </div>
+
+      {/* 2. Direct Contact Strip */}
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-serif text-sm text-foreground">
+        <a
+          href={`mailto:${site.emailPrimary}`}
+          className="transition-colors hover:text-cyber-cyan hover:underline"
+        >
+          {site.emailPrimary}
+        </a>
+        <a
+          href={`mailto:${site.emailSecondary}`}
+          className="transition-colors hover:text-cyber-cyan hover:underline"
+        >
+          {site.emailSecondary}
+        </a>
+        <a
+          href="tel:+917439766325"
+          className="transition-colors hover:text-cyber-cyan hover:underline"
+        >
+          +91-7439766325
+        </a>
+      </div>
+
+      {/* 3. Form */}
+      <form onSubmit={handleSubmit} className="space-y-5 pt-2">
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div className="space-y-1.5">
+            <label
+              htmlFor="contact-name"
+              className="block font-serif text-xs font-semibold tracking-wider text-muted-foreground uppercase"
+            >
+              NAME
+            </label>
+            <input
+              id="contact-name"
+              type="text"
+              required
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="w-full rounded-md border border-border/80 bg-card/60 px-3.5 py-2.5 font-sans text-sm text-foreground transition-all duration-200 focus:border-cyber-cyan focus:bg-card/90 focus:outline-none focus:ring-1 focus:ring-cyber-cyan"
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <label
+              htmlFor="contact-email"
+              className="block font-serif text-xs font-semibold tracking-wider text-muted-foreground uppercase"
+            >
+              EMAIL
+            </label>
+            <input
+              id="contact-email"
+              type="email"
+              required
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full rounded-md border border-border/80 bg-card/60 px-3.5 py-2.5 font-sans text-sm text-foreground transition-all duration-200 focus:border-cyber-cyan focus:bg-card/90 focus:outline-none focus:ring-1 focus:ring-cyber-cyan"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-1.5">
+          <label
+            htmlFor="contact-message"
+            className="block font-serif text-xs font-semibold tracking-wider text-muted-foreground uppercase"
+          >
+            MESSAGE
+          </label>
+          <textarea
+            id="contact-message"
+            required
+            rows={5}
+            value={formData.message}
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            className="w-full rounded-md border border-border/80 bg-card/60 px-3.5 py-2.5 font-sans text-sm text-foreground transition-all duration-200 focus:border-cyber-cyan focus:bg-card/90 focus:outline-none focus:ring-1 focus:ring-cyber-cyan resize-y"
+          />
+        </div>
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between pt-1">
+          <button
+            type="submit"
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-border bg-card/90 px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-foreground transition-all hover:border-cyber-cyan hover:bg-accent hover:text-cyber-cyan cursor-pointer"
+          >
+            <Send size={14} className="text-cyber-cyan" />
+            <span>Send Message</span>
+          </button>
+          {status === "sent" && (
+            <span className="font-mono text-xs font-semibold text-cyber-emerald animate-in fade-in duration-200">
+              ✓ Message dispatched to email client!
+            </span>
+          )}
+        </div>
+      </form>
+    </section>
+  );
+}
+
+function AboutPage() {
+  return (
+    <div className="space-y-10 perspective-container">
+      {/* 1. 3D Holographic Typewriter Banner (Directly at the start of writings) */}
+      <AnimatedSection animation="hologramPop">
+        <HeroTypewriter3D />
+      </AnimatedSection>
+
+      {/* 2. Header Profile / Academic Identity */}
+      <AnimatedSection animation="cyberSlideLeft">
+        <section className="space-y-4">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+            <div>
+              <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                Arpan Mukherjee
+              </h2>
+              <p className="font-serif text-lg text-muted-foreground">
+                B.Sc. in Statistics (Major) • Computer Science (Minor)
+              </p>
+            </div>
+            <span className="scifi-hud-badge">
+              <span className="scifi-pulse-dot" />
+              STATUS: ACTIVE AY 2025–2029
+            </span>
+          </div>
+          <p className="font-serif text-sm italic text-muted-foreground flex items-center gap-1.5">
+            <Terminal size={14} className="text-cyber-cyan" />
+            Ramakrishna Mission Residential College (Autonomous), Narendrapur • University of Calcutta
+          </p>
+          <Rule />
+
+          {/* Narrative Biography */}
+          <div className="space-y-4 font-serif text-base leading-relaxed text-foreground sm:text-lg">
+            {about.paragraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* 3. Institutional Affiliations & Core Summary Grid */}
+      <StaggerContainer className="grid gap-4 sm:grid-cols-3">
+        <div data-stagger-child className="academic-card space-y-2 group card-3d hud-corner-brackets" style={{ borderLeftColor: "var(--cyber-emerald)" }}>
           <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             <span className="flex items-center gap-2">
-              <GraduationCap size={15} className="text-emerald-600 dark:text-emerald-400" />
+              <GraduationCap size={15} className="text-cyber-emerald" />
               Undergraduate
             </span>
-            <span className="font-mono text-[10px] opacity-40 group-hover:opacity-80 transition-opacity">01</span>
+            <span className="font-mono text-[10px] opacity-50 group-hover:opacity-100 transition-opacity">[SYS.01]</span>
           </div>
           <p className="mt-2 font-display text-xl font-bold text-foreground">9.46 Cumulative CPI</p>
           <p className="mt-1 font-serif text-xs text-muted-foreground">
-            Major: 9.45 (Current) · Minor (CS): 9.50 (Current)
+            Major: 9.45 (Current) • Minor (CS): 9.50 (Current)
           </p>
           <Link
             to="/education"
-            className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-emerald-700 hover:underline dark:text-emerald-400"
+            className="mt-3 inline-flex items-center gap-1 font-mono text-xs font-medium text-cyber-emerald hover:underline"
           >
             View Provisional Grade Card →
           </Link>
         </div>
 
-        <div className="academic-card space-y-2 group" style={{ borderLeftColor: "hsl(215, 60%, 45%)" }}>
+        <div data-stagger-child className="academic-card space-y-2 group card-3d hud-corner-brackets" style={{ borderLeftColor: "var(--cyber-cyan)" }}>
           <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             <span className="flex items-center gap-2">
-              <ShieldCheck size={15} className="text-sky-600 dark:text-sky-400" />
-              Research Affiliations
+              <ShieldCheck size={15} className="text-cyber-cyan" />
+              Research Labs
             </span>
-            <span className="font-mono text-[10px] opacity-40 group-hover:opacity-80 transition-opacity">02</span>
+            <span className="font-mono text-[10px] opacity-50 group-hover:opacity-100 transition-opacity">[SYS.02]</span>
           </div>
           <p className="mt-2 font-display text-xl font-bold text-foreground">IIT Delhi & ISI Kolkata</p>
           <p className="mt-1 font-serif text-xs text-muted-foreground">
-            BUILD BANK 2026 (ARTHASETU 2.0) · IDEAS TIH (PSO Disaster Model)
+            BUILD BANK 2026 (ARTHASETU 2.0) • IDEAS TIH (PSO Disaster Model)
           </p>
           <Link
             to="/projects"
-            className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-sky-700 hover:underline dark:text-sky-400"
+            className="mt-3 inline-flex items-center gap-1 font-mono text-xs font-medium text-cyber-cyan hover:underline"
           >
             Read Research Case Studies →
           </Link>
         </div>
 
-        <div className="academic-card space-y-2 group" style={{ borderLeftColor: "hsl(35, 65%, 45%)" }}>
+        <div data-stagger-child className="academic-card space-y-2 group card-3d hud-corner-brackets" style={{ borderLeftColor: "var(--cyber-amber)" }}>
           <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             <span className="flex items-center gap-2">
-              <Award size={15} className="text-amber-600 dark:text-amber-400" />
-              Competitive Standings
+              <Award size={15} className="text-cyber-amber" />
+              Competitive CP
             </span>
-            <span className="font-mono text-[10px] opacity-40 group-hover:opacity-80 transition-opacity">03</span>
+            <span className="font-mono text-[10px] opacity-50 group-hover:opacity-100 transition-opacity">[SYS.03]</span>
           </div>
-          <p className="mt-2 font-display text-xl font-bold text-foreground">LeetCode & Codeforces</p>
+          <p className="mt-2 font-display text-xl font-bold text-foreground">300+ Problems Solved</p>
           <p className="mt-1 font-serif text-xs text-muted-foreground">
-            300+ LeetCode Solved (50-Day Badge) · Codeforces Active Newbie
+            LeetCode 50-Day Badge • Codeforces & DataLemur Benchmarks
           </p>
           <Link
             to="/codeforces"
-            className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-amber-700 hover:underline dark:text-amber-400"
+            className="mt-3 inline-flex items-center gap-1 font-mono text-xs font-medium text-cyber-amber hover:underline"
           >
-            Live Codeforces Breakdown →
+            Inspect Algorithmic Analytics →
           </Link>
         </div>
-      </section>
+      </StaggerContainer>
 
-      {/* Academic & Professional Profiles */}
-      <section>
-        <SectionHeading>Academic & Engineering Profiles</SectionHeading>
-        <Rule />
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <a
-            href={site.socials.github.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-md border border-border/80 bg-card/80 backdrop-blur-sm p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent/80 hover:shadow-sm"
-          >
-            <span className="flex items-center gap-2">
-              <Github size={16} />
-              GitHub
-            </span>
-            <span className="text-xs text-muted-foreground">↗</span>
-          </a>
-
-          <a
-            href={site.socials.codeforces.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-md border border-border/80 bg-card/80 backdrop-blur-sm p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent/80 hover:shadow-sm"
-          >
-            <span className="flex items-center gap-2">
-              <Code2 size={16} />
-              Codeforces
-            </span>
-            <span className="text-xs text-muted-foreground">↗</span>
-          </a>
-
-          <a
-            href={site.socials.leetcode.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-md border border-border/80 bg-card/80 backdrop-blur-sm p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent/80 hover:shadow-sm"
-          >
-            <span className="flex items-center gap-2">
-              <BookOpen size={16} />
-              LeetCode
-            </span>
-            <span className="text-xs text-muted-foreground">↗</span>
-          </a>
-
-          <a
-            href={site.socials.linkedin.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-md border border-border/80 bg-card/80 backdrop-blur-sm p-3.5 text-sm font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent/80 hover:shadow-sm"
-          >
-            <span className="flex items-center gap-2">
-              <Linkedin size={16} />
-              LinkedIn
-            </span>
-            <span className="text-xs text-muted-foreground">↗</span>
-          </a>
-        </div>
-      </section>
-
-      {/* Structured Catalog of Sections */}
-      <section>
-        <SectionHeading>Curriculum & Portfolio Catalog</SectionHeading>
-        <Rule />
-        <div className="divide-y divide-border/60 rounded-md border border-border/80 bg-card/80 backdrop-blur-sm shadow-sm overflow-hidden">
-          {pages.map((page, idx) => (
-            <Link
-              key={page.path}
-              to={page.path}
-              className="group flex flex-col justify-between p-4 transition-colors hover:bg-accent/70 sm:flex-row sm:items-center"
-            >
-              <div className="space-y-0.5">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs text-muted-foreground">0{idx + 1}.</span>
-                  <span className="font-display text-base font-bold text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                    {page.label}
-                  </span>
-                </div>
-                <p className="font-serif text-xs text-muted-foreground pl-6 sm:pl-0">
-                  {page.description}
-                </p>
-              </div>
-              <span className="mt-2 text-xs font-medium text-muted-foreground group-hover:text-foreground sm:mt-0 sm:pl-4 transition-colors">
-                Access Document →
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Academic Communications & Contact */}
-      <section>
-        <SectionHeading>Academic Communications</SectionHeading>
-        <Rule />
-        <p className="font-serif text-base text-foreground">
-          For academic inquiries, collaborative research, or recruitment discussions, please contact directly via email or submit a formal dispatch below.
-        </p>
-
-        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-serif text-sm text-foreground">
-          <a href={`mailto:${site.emailPrimary}`} className="inline-flex items-center gap-1.5 hover:underline">
-            <Mail size={15} className="text-muted-foreground" />
-            {site.emailPrimary} <span className="text-xs text-muted-foreground">(Primary)</span>
-          </a>
-          <a href={`mailto:${site.emailSecondary}`} className="inline-flex items-center gap-1.5 hover:underline">
-            <Mail size={15} className="text-muted-foreground" />
-            {site.emailSecondary} <span className="text-xs text-muted-foreground">(Secondary)</span>
-          </a>
-          <a href={`tel:${site.phone.replace(/\D/g, "")}`} className="inline-flex items-center gap-1.5 hover:underline">
-            <Phone size={15} className="text-muted-foreground" />
-            {site.phone}
-          </a>
-        </div>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            alert("Your dispatch has been noted. Please follow up directly via email for high-priority correspondence.");
-          }}
-          className="mt-6 space-y-4 rounded-md border border-border/80 bg-card p-5"
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="name" className="block font-mono text-xs text-muted-foreground mb-1">
-                Sender Identity / Institution
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Dr. / Prof. / Full Name"
-                required
-                className="w-full rounded border border-border bg-background px-3 py-2 font-serif text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-foreground focus:outline-none"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block font-mono text-xs text-muted-foreground mb-1">
-                Official Email Address
-              </label>
-              <input
-                id="email"
-                type="email"
-                placeholder="address@institution.edu"
-                required
-                className="w-full rounded border border-border bg-background px-3 py-2 font-serif text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-foreground focus:outline-none"
-              />
-            </div>
+      {/* 4. Quick Navigation Matrix */}
+      <AnimatedSection animation="cyberSlideRight">
+        <section className="space-y-4">
+          <SectionHeading>Dossier Index & Records</SectionHeading>
+          <Rule />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {pages
+              .filter((p) => p.path !== "/")
+              .map((page) => (
+                <Link
+                  key={page.path}
+                  to={page.path}
+                  className="academic-card group flex flex-col justify-between space-y-2 p-4 card-3d transition-all hover:border-cyber-cyan/60"
+                  style={{ borderLeftWidth: "3px" }}
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[10px] text-muted-foreground">
+                        [{page.path.replace("/", "").toUpperCase()}]
+                      </span>
+                      <ArrowRight
+                        size={14}
+                        className="text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-cyber-cyan"
+                      />
+                    </div>
+                    <p className="mt-2 font-display text-base font-bold text-foreground">
+                      {page.title}
+                    </p>
+                    <p className="mt-1 font-serif text-xs text-muted-foreground line-clamp-2">
+                      {page.description}
+                    </p>
+                  </div>
+                </Link>
+              ))}
           </div>
-          <div>
-            <label htmlFor="message" className="block font-mono text-xs text-muted-foreground mb-1">
-              Communication Subject & Context
-            </label>
-            <textarea
-              id="message"
-              rows={4}
-              placeholder="Outline the research inquiry, opportunity, or correspondence..."
-              required
-              className="w-full rounded border border-border bg-background px-3 py-2 font-serif text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-foreground focus:outline-none"
-            />
-          </div>
-          <button
-            type="submit"
-            className="inline-flex items-center gap-2 rounded border border-border bg-card px-5 py-2 text-xs uppercase tracking-wider font-semibold text-foreground transition-colors hover:bg-accent"
-          >
-            Submit Academic Dispatch
-          </button>
-        </form>
-      </section>
+        </section>
+      </AnimatedSection>
+
+      {/* 5. Get In Touch Contact Section */}
+      <GetInTouchSection />
     </div>
   );
 }
-

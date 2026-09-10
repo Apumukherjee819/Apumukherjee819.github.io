@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { FileText, Image as ImageIcon, Eye, Download, X, ShieldCheck, ExternalLink } from "lucide-react";
+import { FileText, Image as ImageIcon, Eye, Download, X, ShieldCheck, ExternalLink, Terminal } from "lucide-react";
 import { gallery } from "../data/portfolio";
+import { AnimatedSection } from "../lib/PageTransition";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -26,141 +27,86 @@ export const Route = createFileRoute("/gallery")({
 });
 
 function GalleryPage() {
-  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
-
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 perspective-container">
       {/* Page Header */}
-      <section>
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl [font-variant:small-caps]">
-            {gallery.title} & Credentials
-          </h1>
-          <span className="font-mono text-xs text-muted-foreground">
-            Official PDFs & Verifiable Credentials
-          </span>
-        </div>
-        <div className="academic-rule" />
-        <p className="font-serif text-base text-foreground leading-relaxed">
-          Repository of authentic research reports, institutional internship records, and technical certifications. Click any credential to inspect the high-resolution archival document.
-        </p>
-      </section>
+      <AnimatedSection animation="hologramPop">
+        <section>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+            <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl [font-variant:small-caps]">
+              {gallery.title} & Credentials
+            </h1>
+            <span className="scifi-hud-badge">
+              <span className="scifi-pulse-dot" />
+              VERIFIED ARCHIVAL REPO
+            </span>
+          </div>
+          <div className="academic-rule" />
+          <p className="font-serif text-base text-foreground leading-relaxed">
+            Repository of authentic research reports, institutional internship records, and technical certifications. Click any credential to inspect the high-resolution archival document.
+          </p>
+        </section>
+      </AnimatedSection>
 
       {/* Gallery Cards Grid */}
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         {gallery.items.map((item, idx) => (
-          <article
+          <AnimatedSection
             key={idx}
-            className="group flex flex-col justify-between rounded-md border border-border/80 bg-card p-5 shadow-xs transition-all hover:border-foreground/40 hover:bg-accent/40"
+            animation={idx % 2 === 0 ? "cyberSlideLeft" : "cyberSlideRight"}
+            delay={idx * 0.1}
           >
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 rounded border border-border bg-background px-2 py-0.5 font-mono text-[11px] font-semibold uppercase text-muted-foreground">
-                  {item.type === "image" ? (
-                    <ImageIcon size={12} className="text-sky-600" />
-                  ) : (
-                    <FileText size={12} className="text-emerald-600" />
-                  )}
-                  {item.type}
+            <div
+              className="academic-card group flex flex-col justify-between space-y-4 card-3d hud-corner-brackets"
+              style={{
+                borderLeftColor:
+                  idx === 0
+                    ? "var(--cyber-emerald)"
+                    : idx === 1
+                    ? "var(--cyber-cyan)"
+                    : idx === 2
+                    ? "var(--cyber-violet)"
+                    : "var(--cyber-amber)",
+              }}
+            >
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span className="font-mono text-[10px] text-cyber-cyan">
+                    [DOC // 0{idx + 1}]
+                  </span>
+                  <span className="font-mono">{item.year}</span>
+                </div>
+                <h2 className="font-display text-base font-bold uppercase tracking-wide text-foreground group-hover:text-cyber-cyan transition-colors">
+                  {item.title}
+                </h2>
+                <span className="scifi-hud-badge py-0.5 text-[10px] uppercase">
+                  {item.type} ARCHIVE
                 </span>
-                <span className="font-mono text-xs text-muted-foreground">{item.year}</span>
               </div>
-              <h2 className="font-display text-lg font-bold text-foreground group-hover:text-emerald-700 dark:group-hover:text-emerald-400">
-                {item.title}
-              </h2>
-            </div>
 
-            <div className="mt-5 flex items-center justify-between border-t border-border/50 pt-3">
-              {item.url ? (
-                <>
-                  <button
-                    onClick={() => setExpandedIdx(idx)}
-                    className="inline-flex items-center gap-1.5 rounded border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent"
-                  >
-                    <Eye size={14} className="text-emerald-600" />
-                    <span>Inspect Document</span>
-                  </button>
-                  <a
-                    href={item.url}
-                    download
-                    className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground hover:underline"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Download size={13} />
-                    <span>Download</span>
-                  </a>
-                </>
-              ) : (
-                <span className="font-mono text-xs text-muted-foreground">
-                  Archival Copy Pending
-                </span>
-              )}
-            </div>
-          </article>
-        ))}
-      </div>
-
-      {/* Document Modal Viewer */}
-      {expandedIdx !== null && gallery.items[expandedIdx]?.url && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-xs"
-          onClick={() => setExpandedIdx(null)}
-        >
-          <div
-            className="relative flex max-h-[90vh] w-full max-w-4xl flex-col rounded-md border border-border bg-card shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-border px-5 py-3.5 bg-background">
-              <div className="flex items-center gap-2">
-                <ShieldCheck size={16} className="text-emerald-600" />
-                <h3 className="font-display text-base font-bold text-foreground truncate max-w-lg">
-                  {gallery.items[expandedIdx].title}
-                </h3>
-              </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 pt-2">
                 <a
-                  href={gallery.items[expandedIdx].url}
+                  href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-2 font-mono text-xs font-semibold text-foreground transition-all hover:border-cyber-cyan hover:bg-accent"
                 >
-                  <ExternalLink size={13} />
-                  <span>Open Fullscreen</span>
+                  <Eye size={14} className="text-cyber-cyan" />
+                  Inspect Document
                 </a>
-                <button
-                  onClick={() => setExpandedIdx(null)}
-                  className="rounded p-1 text-muted-foreground hover:bg-accent hover:text-foreground"
-                  aria-label="Close modal"
+                <a
+                  href={item.url}
+                  download
+                  className="inline-flex items-center justify-center rounded-md border border-border bg-background p-2 text-foreground transition-all hover:border-cyber-emerald hover:bg-accent"
+                  title="Download Document"
                 >
-                  <X size={18} />
-                </button>
+                  <Download size={14} className="text-cyber-emerald" />
+                </a>
               </div>
             </div>
-
-            {/* Document Reader Container */}
-            <div className="overflow-auto bg-neutral-900/10 p-2 dark:bg-black/40">
-              {gallery.items[expandedIdx].type === "image" ? (
-                <div className="flex items-center justify-center min-h-[60vh]">
-                  <img
-                    src={gallery.items[expandedIdx].url}
-                    alt={gallery.items[expandedIdx].title}
-                    className="max-h-[75vh] w-auto rounded border border-border object-contain shadow-sm bg-white"
-                  />
-                </div>
-              ) : (
-                <iframe
-                  src={gallery.items[expandedIdx].url}
-                  title={gallery.items[expandedIdx].title}
-                  className="w-full rounded border border-border bg-white"
-                  style={{ height: "75vh" }}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+          </AnimatedSection>
+        ))}
+      </div>
     </div>
   );
 }
-

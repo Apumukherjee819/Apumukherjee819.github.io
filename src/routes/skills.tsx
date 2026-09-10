@@ -1,21 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Code, Database, Cpu, Layers, Terminal, BookOpen } from "lucide-react";
+import { Terminal, Database, Layers, Wrench, BookOpen, Sparkles, Cpu, CheckCircle2 } from "lucide-react";
 import { skills } from "../data/portfolio";
+import { AnimatedSection } from "../lib/PageTransition";
 
 export const Route = createFileRoute("/skills")({
   head: () => ({
     meta: [
-      { title: "Arpan Mukherjee — Technical Competencies & Knowledge Matrix" },
+      { title: "Arpan Mukherjee — Technical Matrix & Skills" },
       {
         name: "description",
         content:
-          "Statistical modeling, machine learning frameworks, programming languages, and computational tools mastered by Arpan Mukherjee.",
+          "Statistical computing, programming languages (Python, C++, SQL), machine learning frameworks, and algorithmic competencies.",
       },
-      { property: "og:title", content: "Arpan Mukherjee — Technical Competencies & Knowledge Matrix" },
+      { property: "og:title", content: "Arpan Mukherjee — Technical Matrix & Skills" },
       {
         property: "og:description",
         content:
-          "Statistical modeling, machine learning frameworks, programming languages, and computational tools mastered by Arpan Mukherjee.",
+          "Statistical computing, programming languages (Python, C++, SQL), machine learning frameworks, and algorithmic competencies.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -26,69 +27,101 @@ export const Route = createFileRoute("/skills")({
 
 function SkillsPage() {
   const getCategoryIcon = (name: string) => {
-    switch (name.toLowerCase()) {
-      case "languages":
-        return <Code size={16} className="text-emerald-600" />;
-      case "libraries":
-        return <Layers size={16} className="text-sky-600" />;
-      case "concepts":
-        return <Cpu size={16} className="text-amber-600" />;
-      default:
-        return <Terminal size={16} className="text-muted-foreground" />;
-    }
+    const lower = name.toLowerCase();
+    if (lower.includes("language")) return <Terminal size={18} className="text-cyber-violet" />;
+    if (lower.includes("librar") || lower.includes("framework")) return <Layers size={18} className="text-cyber-amber" />;
+    if (lower.includes("data") || lower.includes("tool")) return <Database size={18} className="text-cyber-cyan" />;
+    if (lower.includes("concept") || lower.includes("algorithm")) return <Cpu size={18} className="text-cyber-emerald" />;
+    return <BookOpen size={18} className="text-cyber-cyan" />;
+  };
+
+  const getBorderColor = (idx: number) => {
+    const colors = [
+      "var(--cyber-emerald)",
+      "var(--cyber-cyan)",
+      "var(--cyber-violet)",
+      "var(--cyber-amber)",
+    ];
+    return colors[idx % colors.length];
   };
 
   return (
-    <div className="space-y-12">
-      {/* Page Header */}
-      <section>
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl [font-variant:small-caps]">
-            {skills.title} & Competencies
-          </h1>
-          <span className="font-mono text-xs text-muted-foreground">
-            Theoretical & Applied Taxonomy
-          </span>
-        </div>
-        <div className="academic-rule" />
-        <p className="font-serif text-base text-foreground leading-relaxed">
-          Structured catalog of core programming languages, statistical & machine learning packages, mathematical concepts, and engineering environments used across research and competitive computing.
-        </p>
-      </section>
+    <div className="space-y-8 perspective-container">
+      {/* Page Title Header */}
+      <AnimatedSection animation="hologramPop">
+        <section>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+            <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl [font-variant:small-caps]">
+              {skills.title} & Technical Matrix
+            </h1>
+            <span className="scifi-hud-badge">
+              <span className="scifi-pulse-dot" />
+              MATRIX // {skills.categories?.length || 4} CORE DOMAINS
+            </span>
+          </div>
+          <div className="academic-rule" />
+          <p className="font-serif text-base text-foreground leading-relaxed">
+            A comprehensive overview of statistical computing, algorithmic competencies, programming toolchains, and machine learning stacks.
+          </p>
+        </section>
+      </AnimatedSection>
 
-      {/* Categories Grid */}
-      <div className="space-y-8">
-        {skills.categories.map((category) => (
-          <section
-            key={category.name}
-            className="rounded-md border border-border/80 bg-card p-6 shadow-xs space-y-4"
-          >
-            <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <div className="flex items-center gap-2.5">
-                {getCategoryIcon(category.name)}
-                <h2 className="font-display text-xl font-bold text-foreground">
-                  {category.name}
-                </h2>
+      {/* Alternating Sci-Fi Skill Categories */}
+      <div className="space-y-6">
+        {(skills.categories || []).map((cat, idx) => {
+          // Support both items: string[] and skills: { name, level }[]
+          const rawItems = cat.items || (cat as any).skills || [];
+
+          return (
+            <AnimatedSection
+              key={cat.name}
+              animation={idx % 2 === 0 ? "cyberSlideLeft" : "cyberSlideRight"}
+              delay={idx * 0.08}
+            >
+              <div
+                className="academic-card space-y-4 card-3d hud-corner-brackets"
+                style={{
+                  borderLeftColor: getBorderColor(idx),
+                }}
+              >
+                <div className="flex items-center justify-between border-b border-border/60 pb-3">
+                  <div className="flex items-center gap-2.5">
+                    {getCategoryIcon(cat.name)}
+                    <h2 className="font-display text-xl font-bold text-foreground">
+                      {cat.name}
+                    </h2>
+                  </div>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    [DOMAIN 0{idx + 1}]
+                  </span>
+                </div>
+
+                <div className="grid gap-2.5 sm:grid-cols-2 md:grid-cols-3">
+                  {rawItems.map((item: any, sIdx: number) => {
+                    const itemName = typeof item === "string" ? item : item.name;
+                    const itemLevel = typeof item === "object" && item.level ? item.level : "Proficient";
+
+                    return (
+                      <div
+                        key={sIdx}
+                        className="flex items-center justify-between rounded-md border border-border/80 bg-background/50 p-2.5 font-mono text-xs transition-colors hover:border-cyber-cyan/60 hover:bg-secondary/60"
+                      >
+                        <span className="font-semibold text-foreground flex items-center gap-2">
+                          <span className="h-1.5 w-1.5 rounded-full bg-cyber-cyan" />
+                          {itemName}
+                        </span>
+                        <span className="text-[11px] text-muted-foreground">
+                          {itemLevel}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-              <span className="font-mono text-xs text-muted-foreground">
-                {category.items.length} {category.items.length === 1 ? "Domain" : "Disciplines"}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap gap-2 pt-1">
-              {category.items.map((item) => (
-                <span
-                  key={item}
-                  className="inline-flex items-center rounded border border-border bg-background px-3 py-1.5 font-mono text-xs font-medium text-foreground transition-all hover:border-foreground/40 hover:bg-accent"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </section>
-        ))}
+            </AnimatedSection>
+          );
+        })}
       </div>
     </div>
   );
 }
-

@@ -6,8 +6,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Scholarly & Academic Design System
- * Inspired by Oxford, Cambridge, and MIT Research Publications
+ * Advanced Sci-Fi & Scholarly Cybernetic Design System
+ * Infused with Quantum Holography, Cybernetic HUD Telemetry, and Mathematical Precision
  */
 
 @theme inline {
@@ -41,279 +41,152 @@
   --color-ring: var(--ring);
   --color-academic-green: var(--academic-green);
   --color-academic-navy: var(--academic-navy);
+  --color-cyber-cyan: var(--cyber-cyan);
+  --color-cyber-emerald: var(--cyber-emerald);
+  --color-cyber-violet: var(--cyber-violet);
+  --color-cyber-amber: var(--cyber-amber);
 }
 
 :root {
-  --radius: 0.25rem;
-  /* Scholarly archival light palette */
-  --background: oklch(0.985 0.003 85);
-  --foreground: oklch(0.16 0.015 60);
-  --card: oklch(0.995 0.002 85 / 0.82);
-  --card-foreground: oklch(0.16 0.015 60);
+  --radius: 0.35rem;
+  /* High-Tech Archival Light Hologram Palette */
+  --background: oklch(0.985 0.005 160);
+  --foreground: oklch(0.15 0.02 240);
+  --card: oklch(0.995 0.003 160 / 0.88);
+  --card-foreground: oklch(0.15 0.02 240);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0.015 60);
-  --primary: oklch(0.22 0.025 60);
-  --primary-foreground: oklch(0.99 0.002 85);
-  --secondary: oklch(0.955 0.005 85);
-  --secondary-foreground: oklch(0.22 0.025 60);
-  --muted: oklch(0.94 0.004 85);
-  --muted-foreground: oklch(0.44 0.015 60);
-  --accent: oklch(0.945 0.006 85);
-  --accent-foreground: oklch(0.18 0.025 60);
+  --popover-foreground: oklch(0.15 0.02 240);
+  --primary: oklch(0.2 0.03 230);
+  --primary-foreground: oklch(0.99 0.002 160);
+  --secondary: oklch(0.95 0.008 160);
+  --secondary-foreground: oklch(0.2 0.03 230);
+  --muted: oklch(0.935 0.006 160);
+  --muted-foreground: oklch(0.42 0.02 240);
+  --accent: oklch(0.94 0.01 180);
+  --accent-foreground: oklch(0.16 0.03 230);
   --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.85 0.008 75);
-  --input: oklch(0.85 0.008 75);
-  --ring: oklch(0.45 0.02 60);
-  --academic-green: hsl(142, 65%, 30%);
-  --academic-navy: hsl(220, 60%, 25%);
-  --spotlight-color: 16, 185, 129;
-  --grid-line-color: rgba(15, 23, 42, 0.08);
-  --grid-dot-color: rgba(15, 23, 42, 0.18);
+  --border: oklch(0.84 0.015 200);
+  --input: oklch(0.84 0.015 200);
+  --ring: oklch(0.45 0.08 180);
+  
+  --academic-green: hsl(152, 75%, 32%);
+  --academic-navy: hsl(220, 70%, 28%);
+  --cyber-cyan: #00e5ff;
+  --cyber-emerald: #00ffaa;
+  --cyber-violet: #a855f7;
+  --cyber-amber: #ffb703;
+  
+  --spotlight-color: 0, 229, 255;
+  --grid-line-color: rgba(14, 165, 233, 0.09);
+  --grid-dot-color: rgba(16, 185, 129, 0.22);
+  --hud-glow: rgba(0, 229, 255, 0.15);
 }
 
 .dark {
-  /* Scholarly obsidian dark palette */
-  --background: oklch(0.11 0.012 60);
-  --foreground: oklch(0.95 0.005 85);
-  --card: oklch(0.15 0.012 60 / 0.80);
-  --card-foreground: oklch(0.95 0.005 85);
-  --popover: oklch(0.15 0.012 60);
-  --popover-foreground: oklch(0.95 0.005 85);
-  --primary: oklch(0.94 0.005 85);
-  --primary-foreground: oklch(0.11 0.012 60);
-  --secondary: oklch(0.19 0.012 60);
-  --secondary-foreground: oklch(0.94 0.005 85);
-  --muted: oklch(0.19 0.012 60);
-  --muted-foreground: oklch(0.68 0.012 70);
-  --accent: oklch(0.20 0.014 60);
-  --accent-foreground: oklch(0.96 0.005 85);
-  --destructive: oklch(0.65 0.18 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.26 0.01 60);
-  --input: oklch(0.26 0.01 60);
-  --ring: oklch(0.65 0.015 70);
-  --academic-green: hsl(142, 60%, 48%);
-  --academic-navy: hsl(215, 60%, 65%);
-  --spotlight-color: 52, 211, 153;
-  --grid-line-color: rgba(255, 255, 255, 0.075);
-  --grid-dot-color: rgba(255, 255, 255, 0.22);
+  /* Deep Obsidian Quantum Cyberpunk Palette */
+  --background: oklch(0.09 0.018 240);
+  --foreground: oklch(0.96 0.008 180);
+  --card: oklch(0.13 0.02 240 / 0.82);
+  --card-foreground: oklch(0.96 0.008 180);
+  --popover: oklch(0.12 0.02 240);
+  --popover-foreground: oklch(0.96 0.008 180);
+  --primary: oklch(0.94 0.01 180);
+  --primary-foreground: oklch(0.09 0.02 240);
+  --secondary: oklch(0.17 0.025 240);
+  --secondary-foreground: oklch(0.96 0.008 180);
+  --muted: oklch(0.16 0.018 240);
+  --muted-foreground: oklch(0.68 0.02 200);
+  --accent: oklch(0.18 0.03 210);
+  --accent-foreground: oklch(0.98 0.005 180);
+  --destructive: oklch(0.48 0.18 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.24 0.035 220);
+  --input: oklch(0.24 0.035 220);
+  --ring: oklch(0.68 0.14 190);
+  
+  --academic-green: hsl(152, 90%, 45%);
+  --academic-navy: hsl(210, 95%, 65%);
+  --cyber-cyan: #00f0ff;
+  --cyber-emerald: #00ff9d;
+  --cyber-violet: #c084fc;
+  --cyber-amber: #fcd34d;
+  
+  --spotlight-color: 0, 240, 255;
+  --grid-line-color: rgba(0, 240, 255, 0.07);
+  --grid-dot-color: rgba(0, 255, 157, 0.25);
+  --hud-glow: rgba(0, 240, 255, 0.25);
 }
 
-@layer base {
-  * {
-    border-color: var(--color-border);
-  }
-
-  html {
-    scroll-behavior: smooth;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: var(--color-background);
-  }
-
-  body {
-    background-color: transparent;
-    color: var(--color-foreground);
-    font-family: var(--font-serif);
-    font-size: 1.0625rem;
-    line-height: 1.7;
-    letter-spacing: -0.01em;
-    min-height: 100vh;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-display);
-    line-height: 1.25;
-    letter-spacing: -0.015em;
-  }
-
-  h1 {
-    font-size: 2.2rem;
-  }
-
-  h2 {
-    font-size: 1.65rem;
-  }
-
-  h3 {
-    font-size: 1.3rem;
-  }
+/* Base resets & smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
-/* Background Patterns & Mathematical Coordinate Grid */
-.bg-math-grid {
-  background-image: 
-    radial-gradient(var(--grid-dot-color) 1px, transparent 1px),
-    linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
-  background-size: 28px 28px, 112px 112px, 112px 112px;
-  background-position: 0 0, 0 0, 0 0;
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-.bg-graph-matrix {
+/* Custom Sci-Fi Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-border) 80%, var(--cyber-cyan));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyber-cyan);
+}
+
+/* Sci-Fi Background Grids & Hologram Effects */
+.bg-grid-scifi {
+  background-size: 40px 40px;
   background-image: 
     linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
-  background-size: 28px 28px;
 }
 
-.bg-radial-vignette {
-  background: radial-gradient(circle at center, transparent 35%, var(--background) 95%);
+.bg-dots-scifi {
+  background-size: 24px 24px;
+  background-image: radial-gradient(
+    circle,
+    var(--grid-dot-color) 1.2px,
+    transparent 1.2px
+  );
 }
 
-.bg-guilloche {
-  background-image: repeating-linear-gradient(
-      45deg,
-      var(--grid-line-color) 0,
-      var(--grid-line-color) 1px,
-      transparent 0,
-      transparent 12px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      var(--grid-line-color) 0,
-      var(--grid-line-color) 1px,
-      transparent 0,
-      transparent 12px
-    );
+.bg-vignette-scifi {
+  background: radial-gradient(circle at center, transparent 30%, var(--background) 95%);
 }
 
-/* Keyframe Animations for Atmospheric Drifting Glow */
-@keyframes ambient-drift {
-  0%, 100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  50% {
-    transform: translate(30px, -25px) scale(1.06);
-  }
-}
-
-@keyframes ambient-drift-reverse {
-  0%, 100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  50% {
-    transform: translate(-35px, 30px) scale(1.08);
-  }
-}
-
-@keyframes pulse-subtle {
+/* Keyframe Animations for Sci-Fi HUD & Holograms */
+@keyframes scifi-pulse {
   0%, 100% {
     opacity: 0.6;
     transform: scale(1);
+    filter: drop-shadow(0 0 4px var(--hud-glow));
   }
   50% {
-    opacity: 0.9;
-    transform: scale(1.04);
+    opacity: 1;
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 12px var(--hud-glow));
   }
 }
 
-.animate-ambient-drift {
-  animation: ambient-drift 22s ease-in-out infinite;
-}
-
-.animate-ambient-drift-reverse {
-  animation: ambient-drift-reverse 26s ease-in-out infinite;
-}
-
-.animate-pulse-subtle {
-  animation: pulse-subtle 16s ease-in-out infinite;
-}
-
-/* Academic Dossier Callout & Table Utilities */
-.academic-rule {
-  height: 1px;
-  width: 100%;
-  background: var(--color-border);
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.academic-rule::after {
-  content: "+";
-  position: absolute;
-  right: 0;
-  top: -8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--color-muted-foreground);
-  opacity: 0.5;
-}
-
-.academic-section-heading {
-  font-family: var(--font-display);
-  font-variant: small-caps;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-  color: var(--color-foreground);
-}
-
-/* Gradient Utilities & Accents */
-.text-gradient-emerald {
-  background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0284c7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.dark .text-gradient-emerald {
-  background: linear-gradient(135deg, #34d399 0%, #2dd4bf 50%, #38bdf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-sky {
-  background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.dark .text-gradient-sky {
-  background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 50%, #a78bfa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-amber {
-  background: linear-gradient(135deg, #d97706 0%, #ea580c 50%, #dc2626 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.dark .text-gradient-amber {
-  background: linear-gradient(135deg, #fbbf24 0%, #fb923c 50%, #f87171 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-purple {
-  background: linear-gradient(135deg, #7c3aed 0%, #c026d3 50%, #db2777 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.dark .text-gradient-purple {
-  background: linear-gradient(135deg, #a78bfa 0%, #e879f9 50%, #f472b6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.header-gradient-bar {
-  height: 2px;
-  width: 100%;
-  background: linear-gradient(90deg, #10b981 0%, #06b6d4 25%, #3b82f6 50%, #8b5cf6 75%, #f59e0b 100%);
-  background-size: 200% 100%;
-  animation: gradient-flow 12s ease infinite;
-}
-
-@keyframes gradient-flow {
+@keyframes cyber-border-flow {
   0% {
     background-position: 0% 50%;
   }
@@ -325,21 +198,144 @@
   }
 }
 
+@keyframes hologram-flicker {
+  0%, 100% { opacity: 0.98; }
+  92% { opacity: 0.98; }
+  93% { opacity: 0.85; }
+  94% { opacity: 0.98; }
+  96% { opacity: 0.9; }
+  98% { opacity: 1; }
+}
+
+.animate-scifi-pulse {
+  animation: scifi-pulse 4s ease-in-out infinite;
+}
+
+.animate-hologram-flicker {
+  animation: hologram-flicker 8s ease infinite;
+}
+
+/* Academic & Sci-Fi Rules */
+.academic-rule {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--color-border) 0%, color-mix(in srgb, var(--cyber-cyan) 60%, transparent) 50%, var(--color-border) 100%);
+  margin-top: 0.6rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.academic-rule::before {
+  content: "[SYS.ACTIVE]";
+  position: absolute;
+  left: 0;
+  top: -9px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--color-muted-foreground);
+  opacity: 0.6;
+}
+
+.academic-rule::after {
+  content: "// HUD.ONLINE //";
+  position: absolute;
+  right: 0;
+  top: -9px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--cyber-cyan);
+  opacity: 0.8;
+}
+
+.academic-section-heading {
+  font-family: var(--font-display);
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  color: var(--color-foreground);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Sci-Fi Text Gradients */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #00b4d8 0%, #00f0ff 50%, #70e000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .text-gradient-cyan {
+  background: linear-gradient(135deg, #38bdf8 0%, #00f0ff 50%, #00ff9d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .text-gradient-emerald {
+  background: linear-gradient(135deg, #34d399 0%, #00ffaa 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-violet {
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #00f0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .text-gradient-violet {
+  background: linear-gradient(135deg, #c084fc 0%, #e879f9 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-amber {
+  background: linear-gradient(135deg, #d97706 0%, #ea580c 50%, #ff0055 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .text-gradient-amber {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fb7185 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Sci-Fi Top Header Gradient Stream */
+.header-gradient-bar {
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #00f0ff 0%, #00ff9d 25%, #3b82f6 50%, #a855f7 75%, #ffb703 100%);
+  background-size: 250% 100%;
+  animation: cyber-border-flow 8s ease infinite;
+}
+
+/* Advanced Sci-Fi Hologram Cards */
 .academic-card {
   position: relative;
   border: 1px solid var(--color-border);
   background-color: var(--color-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-left-width: 3.5px;
   border-left-color: var(--academic-green);
   border-radius: var(--radius-md);
   padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
 }
 
+/* Sci-Fi Hologram Corner Brackets [ + ] */
 .academic-card::before {
   content: "";
   position: absolute;
@@ -347,30 +343,118 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.5), rgba(56, 189, 248, 0.5), rgba(245, 158, 11, 0.3));
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  background: linear-gradient(90deg, var(--cyber-cyan) 0%, var(--cyber-emerald) 50%, var(--cyber-violet) 100%);
+  opacity: 0.3;
+  transition: opacity 0.35s ease, height 0.35s ease;
+}
+
+.academic-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid var(--cyber-cyan);
+  border-right: 2px solid var(--cyber-cyan);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .academic-card:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--color-border) 70%, var(--academic-green));
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.12), 0 0 20px -3px var(--hud-glow);
+  transform: translateY(-4px) scale(1.008);
+  border-color: color-mix(in srgb, var(--color-border) 50%, var(--cyber-cyan));
 }
 
 .academic-card:hover::before {
   opacity: 1;
+  height: 2.5px;
 }
 
+.academic-card:hover::after {
+  opacity: 1;
+  width: 18px;
+  height: 18px;
+  border-color: var(--cyber-emerald);
+}
+
+/* Sci-Fi HUD Corner Brackets Container */
+.hud-corner-brackets {
+  position: relative;
+}
+
+.hud-corner-brackets::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid var(--cyber-emerald);
+  border-left: 2px solid var(--cyber-emerald);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.hud-corner-brackets::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid var(--cyber-cyan);
+  border-right: 2px solid var(--cyber-cyan);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Sci-Fi Telemetry Badges */
+.scifi-hud-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  background: color-mix(in srgb, var(--color-background) 70%, var(--cyber-cyan) 12%);
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, var(--cyber-cyan) 40%);
+  color: var(--color-foreground);
+  box-shadow: 0 0 10px -2px var(--hud-glow);
+}
+
+.scifi-hud-badge .scifi-pulse-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--cyber-emerald);
+}
+
+.scifi-hud-badge .scifi-pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background-color: var(--cyber-emerald);
+  opacity: 0.6;
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Gradecard & High-Tech Data Tables */
 .gradecard-container {
   position: relative;
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
   background-color: var(--color-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06), 0 0 15px -3px var(--hud-glow);
 }
 
 .gradecard-watermark {
@@ -384,17 +468,52 @@
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--color-foreground);
-  opacity: 0.038;
+  opacity: 0.035;
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
   z-index: 1;
 }
 
+/* 3D Scene Container & Canvas Layer */
+.scene3d-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.scene3d-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Ensure content scrolls cleanly above the 3D scene */
+main, header, footer, .fixed {
+  position: relative;
+  z-index: 10;
+}
+
+/* 3D Card Hover Depth */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.card-3d:hover {
+  transform: perspective(1000px) rotateY(-2.5deg) rotateX(2deg) translateZ(14px);
+}
+
+/* Perspective Container */
+.perspective-container {
+  perspective: 1400px;
+  perspective-origin: center 40%;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-ambient-drift,
-  .animate-ambient-drift-reverse,
-  .animate-pulse-subtle {
+  .animate-scifi-pulse,
+  .animate-hologram-flicker,
+  .header-gradient-bar {
     animation: none;
   }
 }
@@ -409,5 +528,121 @@
   header, footer, button, .no-print, [aria-hidden="true"] {
     display: none !important;
   }
+
+  .scene3d-container, .bg-grid-scifi, .bg-dots-scifi {
+    display: none !important;
+  }
 }
 
+/* =========================================================================
+ * 3D Holographic Typewriter Hero Typography & HUD Frame
+ * ========================================================================= */
+.scifi-3d-hero-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-shadow: 
+    0 1px 1px rgba(0, 240, 255, 0.9),
+    0 2px 2px rgba(0, 240, 255, 0.7),
+    0 3px 4px rgba(0, 240, 255, 0.5),
+    0 6px 16px rgba(0, 240, 255, 0.3),
+    0 12px 36px rgba(0, 240, 255, 0.2);
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+}
+
+:root:not(.dark) .scifi-3d-hero-title {
+  text-shadow: 
+    0 1px 1px rgba(2, 132, 199, 0.6),
+    0 2px 3px rgba(2, 132, 199, 0.4),
+    0 4px 10px rgba(2, 132, 199, 0.25);
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  color: var(--cyber-cyan);
+  font-weight: 300;
+  animation: scifiBlink 0.9s infinite;
+  text-shadow: 0 0 10px var(--cyber-cyan), 0 0 20px var(--cyber-cyan);
+  margin-left: 2px;
+}
+
+@keyframes scifiBlink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.hero-telemetry-box {
+  background: rgba(8, 12, 22, 0.65);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.08), inset 0 0 25px rgba(0, 240, 255, 0.03);
+  position: relative;
+}
+
+:root:not(.dark) .hero-telemetry-box {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================================================================
+ * Full-Screen 3D Holographic Typewriter Stage
+ * ========================================================================= */
+.hero-3d-stage {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.hero-3d-card {
+  background: rgba(8, 14, 28, 0.72);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    0 0 50px rgba(0, 240, 255, 0.12),
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    inset 0 0 30px rgba(0, 240, 255, 0.05);
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.12s ease-out, box-shadow 0.3s ease;
+}
+
+:root:not(.dark) .hero-3d-card {
+  background: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(2, 132, 199, 0.35);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.08),
+    0 0 30px rgba(2, 132, 199, 0.15);
+}
+
+.scifi-3d-huge-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: var(--foreground);
+  text-shadow: 
+    0 1px 1px rgba(0, 240, 255, 0.95),
+    0 2px 2px rgba(0, 240, 255, 0.8),
+    0 4px 6px rgba(0, 240, 255, 0.5),
+    0 8px 20px rgba(0, 240, 255, 0.35),
+    0 16px 45px rgba(0, 240, 255, 0.22);
+}
+
+:root:not(.dark) .scifi-3d-huge-text {
+  text-shadow: 
+    0 1px 1px rgba(2, 132, 199, 0.7),
+    0 2px 3px rgba(2, 132, 199, 0.4),
+    0 5px 12px rgba(2, 132, 199, 0.25);
+}
