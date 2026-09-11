@@ -505,7 +505,7 @@ main, header, footer, .fixed {
 }
 
 .card-3d:hover {
-  transform: perspective(1000px) rotateY(0deg) rotateX(180deg) translateZ(14px);
+  transform: perspective(1000px) rotateY(-2.5deg) rotateX(2deg) translateZ(14px);
 }
 
 /* Perspective Container */
