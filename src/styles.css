@@ -493,12 +493,8 @@ body {
 }
 
 /* Ensure content scrolls cleanly above the 3D scene */
-main, footer, .fixed {
+main, header, footer, .fixed {
   position: relative;
-  z-index: 10;
-}
-header{
-  position: fixed;
   z-index: 10;
 }
 /* 3D Card Hover Depth */
