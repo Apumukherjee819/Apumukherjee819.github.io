@@ -96,8 +96,8 @@ function BivariateGaussianManifold({
         const idx1 = (i * (gridRes + 1) + j) * 3;
         const idx2 = (i * (gridRes + 1) + (j + 1)) * 3;
         gridPoints.push(
-          vertices[idx1], vertices[idx1 + 1], vertices[idx1 + 2],
-          vertices[idx2], vertices[idx2 + 1], vertices[idx2 + 2]
+          vertices[idx1]!, vertices[idx1 + 1]!, vertices[idx1 + 2]!,
+          vertices[idx2]!, vertices[idx2 + 1]!, vertices[idx2 + 2]!
         );
       }
     }
@@ -106,8 +106,8 @@ function BivariateGaussianManifold({
         const idx1 = (i * (gridRes + 1) + j) * 3;
         const idx2 = ((i + 1) * (gridRes + 1) + j) * 3;
         gridPoints.push(
-          vertices[idx1], vertices[idx1 + 1], vertices[idx1 + 2],
-          vertices[idx2], vertices[idx2 + 1], vertices[idx2 + 2]
+          vertices[idx1]!, vertices[idx1 + 1]!, vertices[idx1 + 2]!,
+          vertices[idx2]!, vertices[idx2 + 1]!, vertices[idx2 + 2]!
         );
       }
     }
@@ -240,8 +240,8 @@ function LorenzSaddleManifold({
         const p1 = (i * (res + 1) + j) * 3;
         const p2 = (i * (res + 1) + (j + 1)) * 3;
         lines.push(
-          vertices[p1], vertices[p1 + 1], vertices[p1 + 2],
-          vertices[p2], vertices[p2 + 1], vertices[p2 + 2]
+          vertices[p1]!, vertices[p1 + 1]!, vertices[p1 + 2]!,
+          vertices[p2]!, vertices[p2 + 1]!, vertices[p2 + 2]!
         );
       }
     }
@@ -250,8 +250,8 @@ function LorenzSaddleManifold({
         const p1 = (i * (res + 1) + j) * 3;
         const p2 = ((i + 1) * (res + 1) + j) * 3;
         lines.push(
-          vertices[p1], vertices[p1 + 1], vertices[p1 + 2],
-          vertices[p2], vertices[p2 + 1], vertices[p2 + 2]
+          vertices[p1]!, vertices[p1 + 1]!, vertices[p1 + 2]!,
+          vertices[p2]!, vertices[p2 + 1]!, vertices[p2 + 2]!
         );
       }
     }

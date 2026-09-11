@@ -42,7 +42,7 @@ function AchievementsPage() {
           </div>
           <div className="academic-rule" />
           <p className="font-serif text-base text-foreground leading-relaxed">
-            {achievements.description}
+            {achievements.title}
           </p>
         </section>
       </AnimatedSection>

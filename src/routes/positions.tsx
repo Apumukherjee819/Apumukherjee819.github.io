@@ -42,7 +42,7 @@ function PositionsPage() {
           </div>
           <div className="academic-rule" />
           <p className="font-serif text-base text-foreground leading-relaxed">
-            {positions.description}
+            {positions.title}
           </p>
         </section>
       </AnimatedSection>
@@ -73,7 +73,7 @@ function PositionsPage() {
                   </h2>
                   <p className="mt-1 flex items-center gap-1.5 font-serif text-sm text-muted-foreground">
                     <Terminal size={14} className="text-cyber-cyan" />
-                    {pos.institution}
+                    {pos.organization}
                   </p>
                 </div>
                 <span className="font-mono text-xs font-semibold text-foreground">
@@ -84,22 +84,6 @@ function PositionsPage() {
               <p className="font-serif text-base leading-relaxed text-foreground">
                 {pos.description}
               </p>
-
-              {pos.responsibilities && (
-                <div className="rounded-md border border-border/70 bg-background/50 p-3.5 backdrop-blur-md">
-                  <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    Key Directives & Mandates
-                  </h3>
-                  <ul className="mt-2 space-y-1.5 font-serif text-sm text-foreground">
-                    {pos.responsibilities.map((resp, rIdx) => (
-                      <li key={rIdx} className="flex items-start gap-2">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyber-emerald" />
-                        <span>{resp}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
           </AnimatedSection>
         ))}

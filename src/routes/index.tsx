@@ -424,7 +424,7 @@ function AboutPage() {
                       />
                     </div>
                     <p className="mt-2 font-display text-base font-bold text-foreground">
-                      {page.title}
+                      {page.label}
                     </p>
                     <p className="mt-1 font-serif text-xs text-muted-foreground line-clamp-2">
                       {page.description}

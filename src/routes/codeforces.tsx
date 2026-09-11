@@ -362,7 +362,7 @@ function CodeforcesPage() {
                     });
 
                     const pathD = points.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(" ");
-                    const areaD = `${pathD} L ${points[points.length - 1].x} 150 L ${points[0].x} 150 Z`;
+                    const areaD = `${pathD} L ${points[points.length - 1]!.x} 150 L ${points[0]!.x} 150 Z`;
 
                     return (
                       <>

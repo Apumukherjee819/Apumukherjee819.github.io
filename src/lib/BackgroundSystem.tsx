@@ -54,7 +54,7 @@ export function BackgroundSystem() {
     const connectionDist = isMobile ? 100 : 140;
 
     for (let i = 0; i < particleCount; i++) {
-      const color = colors[Math.floor(Math.random() * colors.length)];
+      const color = colors[Math.floor(Math.random() * colors.length)]!;
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -109,7 +109,7 @@ export function BackgroundSystem() {
 
       // 2. Click Sonar Waves
       for (let w = waves.length - 1; w >= 0; w--) {
-        const wave = waves[w];
+        const wave = waves[w]!;
         wave.radius += 1.8;
         wave.alpha *= 0.96;
 
@@ -128,7 +128,7 @@ export function BackgroundSystem() {
       const isMouseActive = Date.now() - lastMouseMove < 3000;
 
       for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
+        const p = particles[i]!;
         p.x += p.vx;
         p.y += p.vy;
 
@@ -159,8 +159,8 @@ export function BackgroundSystem() {
       // 4. Particle Connections & Data Packets
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
-          const p1 = particles[i];
-          const p2 = particles[j];
+          const p1 = particles[i]!;
+          const p2 = particles[j]!;
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -181,7 +181,7 @@ export function BackgroundSystem() {
                 toIndex: j,
                 progress: 0,
                 speed: Math.random() * 0.012 + 0.008,
-                color: colors[Math.floor(Math.random() * colors.length)],
+                color: colors[Math.floor(Math.random() * colors.length)]!,
               });
             }
           }
@@ -190,7 +190,7 @@ export function BackgroundSystem() {
 
       // 5. Draw Traveling Data Packets
       for (let k = packets.length - 1; k >= 0; k--) {
-        const packet = packets[k];
+        const packet = packets[k]!;
         packet.progress += packet.speed;
 
         const p1 = particles[packet.fromIndex];
@@ -201,8 +201,8 @@ export function BackgroundSystem() {
           continue;
         }
 
-        const curX = p1.x + (p2.x - p1.x) * packet.progress;
-        const curY = p1.y + (p2.y - p1.y) * packet.progress;
+        const curX = p1!.x + (p2!.x - p1!.x) * packet.progress;
+        const curY = p1!.y + (p2!.y - p1!.y) * packet.progress;
 
         ctx.beginPath();
         ctx.arc(curX, curY, 2.2, 0, Math.PI * 2);
