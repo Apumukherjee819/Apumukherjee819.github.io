@@ -81,7 +81,7 @@ interface CFSubmission {
     rating?: number;
   };
   programmingLanguage: string;
-  verdict: string;
+  verdict?: string;
   passedTestCount: number;
   timeConsumedMillis: number;
   memoryConsumedBytes: number;
@@ -361,6 +361,8 @@ function CodeforcesPage() {
                       return { x, y, ...r };
                     });
 
+                    if (points.length === 0) return null;
+
                     const pathD = points.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(" ");
                     const areaD = `${pathD} L ${points[points.length - 1]!.x} 150 L ${points[0]!.x} 150 Z`;
 
@@ -470,6 +472,7 @@ function CodeforcesPage() {
                   const isOk = sub.verdict === "OK";
                   const isWa = sub.verdict === "WRONG_ANSWER";
                   const isTle = sub.verdict === "TIME_LIMIT_EXCEEDED";
+                  const isTesting = !sub.verdict || sub.verdict === "TESTING";
 
                   return (
                     <tr key={sub.id} className="hover:bg-secondary/40 transition-colors">
@@ -491,10 +494,16 @@ function CodeforcesPage() {
                               ? "bg-amber-500/15 text-cyber-amber border border-amber-500/30"
                               : isTle
                               ? "bg-violet-500/15 text-cyber-violet border border-violet-500/30"
+                              : isTesting
+                              ? "bg-cyan-500/15 text-cyber-cyan border border-cyan-500/30 animate-pulse"
                               : "bg-secondary text-muted-foreground"
                           }`}
                         >
-                          {sub.verdict === "OK" ? "ACCEPTED" : sub.verdict.replace(/_/g, " ")}
+                          {sub.verdict === "OK"
+                            ? "ACCEPTED"
+                            : sub.verdict
+                            ? sub.verdict.replace(/_/g, " ")
+                            : "TESTING / PENDING"}
                         </span>
                       </td>
                       <td className="py-2.5 pr-3 text-right text-muted-foreground">
